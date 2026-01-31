@@ -35,21 +35,45 @@ function getErrorCode(error: unknown): string | undefined {
 
 export async function POST(req: Request) {
   try {
-    let body: unknown;
+    let formData: FormData;
     try {
-      body = await req.json();
+      formData = await req.formData();
     } catch {
-      return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+      return NextResponse.json({ error: "Invalid form data" }, { status: 400 });
     }
 
-    const transcript =
-      typeof body === "object" && body !== null
-        ? (body as { transcript?: unknown }).transcript
-        : undefined;
+    const fileEntry = formData.get("file");
+    const file = fileEntry instanceof File ? fileEntry : null;
 
-    if (!transcript || typeof transcript !== "string") {
+    const textEntry = formData.get("text");
+    const text = typeof textEntry === "string" ? textEntry : null;
+
+    let transcript = "";
+    const notes = file && text?.trim() ? text : undefined;
+
+    if (file) {
+      const buffer = Buffer.from(await file.arrayBuffer());
+
+      if (file.name.endsWith(".txt")) {
+        transcript = buffer.toString("utf-8");
+      }
+
+      if (file.name.endsWith(".docx")) {
+        const mammoth = await import("mammoth");
+        const result = await mammoth.extractRawText({ buffer });
+        transcript = result.value;
+      }
+    }
+
+    if (text?.trim()) {
+      transcript = transcript
+        ? `${transcript}\n\nNotas adicionales:\n${text}`
+        : text;
+    }
+
+    if (!transcript) {
       return NextResponse.json(
-        { error: "Transcript is required" },
+        { error: "No transcription provided" },
         { status: 400 }
       );
     }
@@ -79,7 +103,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const pdfBytes = await generateActaPDF(parsed.data);
+    const pdfBytes = await generateActaPDF(parsed.data, notes);
 
     return new Response(Buffer.from(pdfBytes), {
       headers: {
