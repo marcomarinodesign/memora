@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 
 const MAIN_NAV_LINKS = [
-  { href: "/#como-funciona", label: "Como funciona" },
+  { href: "/como-funciona", label: "Como funciona" },
   { href: "/#faq", label: "FAQ" },
   { href: "/#pricing", label: "Pricing" },
   { href: "/#contactos", label: "Contactos" },
@@ -30,12 +30,12 @@ export function Footer1() {
           {/* Logo Section */}
           <Link href="/" aria-label="Go to homepage">
             <Image
-              src="/brand/memora-logo-footer.png"
+              src="/brand/memora.svg"
               alt="memora"
               width={59}
               height={9}
               priority
-              className="h-4 w-auto"
+              className="h-4 w-auto brightness-0 invert"
             />
           </Link>
 

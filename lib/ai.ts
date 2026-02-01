@@ -4,21 +4,24 @@ type GroqJsonError = Error & { raw?: string; extracted?: string | null };
 
 function getGroqClient() {
   const apiKeyRaw = process.env.GROQ_API_KEY;
-  const apiKey =
-    apiKeyRaw?.startsWith("sk_groq_") === true
-      ? apiKeyRaw.slice("sk_groq_".length)
-      : apiKeyRaw;
+  const apiKey = apiKeyRaw?.trim();
   if (!apiKey) {
-    throw new Error("Missing GROQ_API_KEY. Set it in .env.local");
+    throw new Error(
+      "Missing GROQ_API_KEY. Set it in your environment variables (e.g. Vercel Project Settings → Environment Variables)."
+    );
   }
 
   return new OpenAI({
-    apiKey: apiKey.trim(),
+    apiKey,
     baseURL: "https://api.groq.com/openai/v1",
   });
 }
 
-const groq = getGroqClient();
+let groqClient: OpenAI | null = null;
+function groq() {
+  if (!groqClient) groqClient = getGroqClient();
+  return groqClient;
+}
 
 function extractJsonCandidate(text: string): string | null {
   const trimmed = text.trim();
@@ -70,7 +73,7 @@ TRANSCRIPCIÓN:
 ${transcript}
 `;
 
-  const completion = await groq.chat.completions.create({
+  const completion = await groq().chat.completions.create({
     model: "llama-3.1-8b-instant",
     temperature: 0,
     messages: [

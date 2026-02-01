@@ -1,13 +1,13 @@
 "use client";
 
-import { Logo } from "@/components/pro-blocks/logo";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const MENU_ITEMS = [
-  { label: "Como funciona", href: "/#como-funciona" },
+  { label: "Como funciona", href: "/como-funciona" },
   { label: "FAQ", href: "/#faq" },
   { label: "Pricing", href: "/#pricing" },
   { label: "Contactos", href: "/#contactos" },
@@ -43,7 +43,14 @@ export function LpNavbar1() {
       <div className="relative container m-auto flex flex-col justify-between gap-4 px-6 md:flex-row md:items-center md:gap-8">
         <div className="flex items-center justify-between md:flex-none">
           <Link href="/" aria-label="Go to homepage">
-            <Logo className="h-4 w-auto" />
+            <Image
+              src="/brand/memora.svg"
+              alt="memora"
+              width={59}
+              height={9}
+              priority
+              className="h-4 w-auto dark:invert"
+            />
           </Link>
           <Button
             variant="ghost"
