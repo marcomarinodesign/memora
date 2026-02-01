@@ -7,12 +7,32 @@ export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+
+  const handleDownloadPDF = async () => {
+    if (!pdfUrl) return;
+
+    // Abrir preview solo por acción del usuario
+    window.open(pdfUrl, "_blank", "noopener,noreferrer");
+
+    const a = document.createElement("a");
+    a.href = pdfUrl;
+    a.download = "acta.pdf";
+    a.click();
+
+    // Nota: no revocar inmediatamente o el preview puede fallar
+    setTimeout(() => URL.revokeObjectURL(pdfUrl), 5 * 60_000);
+  };
 
   const handleGenerate = async () => {
     if (!file && !text.trim()) return;
 
     setLoading(true);
     setError(null);
+    setPdfUrl((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return null;
+    });
 
     try {
       const formData = new FormData();
@@ -35,23 +55,9 @@ export default function Home() {
 
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
+      setPdfUrl(url);
 
-      // abrir en nueva pestaña (preview) antes de descargar
-      const opened = window.open(url, "_blank", "noopener,noreferrer");
-
-      // descarga automática
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "acta.pdf";
-      a.click();
-
-      // Nota: no revocar inmediatamente o el preview puede fallar
-      setTimeout(() => URL.revokeObjectURL(url), 60_000);
-
-      // Fallback si el navegador bloquea popups
-      if (!opened) {
-        // (la descarga ya se disparó arriba)
-      }
+      // Importante: NO abrimos pestaña aquí. Solo al pulsar "Descargar PDF".
     } catch {
       setError("No se ha podido generar el acta. Revisa la transcripción.");
     } finally {
@@ -66,7 +72,7 @@ export default function Home() {
           Generar acta de reunión
         </h1>
 
-        <section className="rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 p-5 space-y-4">
+        <section className="rounded-xl bg-gray-50 p-5 space-y-4">
           <p className="text-sm text-gray-600 text-center">
             Pega la transcripción y/o añade información adicional sobre la reunión
           </p>
@@ -86,7 +92,7 @@ export default function Home() {
 
             <label
               htmlFor="acta-file"
-              className="w-full inline-flex items-center justify-center rounded-md border border-gray-200 bg-white py-2 text-sm font-medium text-gray-900 hover:bg-gray-50 cursor-pointer"
+              className="w-full h-11 px-4 inline-flex items-center justify-center rounded-md border border-gray-200 bg-transparent text-base font-medium text-gray-900 hover:bg-white cursor-pointer"
             >
               {file
                 ? `Archivo seleccionado: ${file.name}`
@@ -121,9 +127,17 @@ export default function Home() {
         <button
           onClick={handleGenerate}
           disabled={loading}
-          className="w-full bg-black text-white py-2 rounded-md hover:opacity-90 disabled:opacity-50"
+          className="w-full h-11 px-4 rounded-md border border-gray-200 bg-gray-100 text-base font-medium text-gray-900 hover:bg-gray-200 disabled:opacity-50"
         >
-          {loading ? "Generando acta…" : "Generar acta (PDF)"}
+          {loading ? "Generando acta…" : "Generar acta"}
+        </button>
+
+        <button
+          onClick={handleDownloadPDF}
+          disabled={!pdfUrl || loading}
+          className="w-full h-11 px-4 rounded-md bg-black text-base font-medium text-white hover:opacity-90 disabled:opacity-50"
+        >
+          Descargar PDF
         </button>
       </div>
     </main>
