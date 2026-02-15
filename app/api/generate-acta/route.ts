@@ -1,37 +1,19 @@
 // app/api/generate-acta/route.ts
+/**
+ * Error flow:
+ * - 400: Invalid form data, no transcript
+ * - 422: Invalid JSON from AI, invalid acta structure
+ * - 500: Groq API failure, empty response, or other server errors
+ * Never log or expose API keys.
+ */
 import { NextResponse } from "next/server";
-import { generateActaFromTranscript } from "@/lib/ai";
+import puppeteer from "puppeteer";
+import { extractStructuredActa } from "@/lib/ai/aiUtils";
 import { ActaSchema } from "@/app/schema/acta.schema";
-import { generateActaPDF } from "@/lib/pdf";
+import { mapStructuredActaToPdfFormat } from "@/lib/acta/actaMapper";
+import { generateActaHtml } from "@/lib/generateActaHtml";
 
 export const runtime = "nodejs";
-
-function pickDebugInfo(error: unknown): { raw?: unknown; extracted?: unknown } {
-  if (process.env.NODE_ENV === "production") return {};
-  if (typeof error !== "object" || error === null) return {};
-
-  const raw = "raw" in error ? (error as { raw?: unknown }).raw : undefined;
-  const extracted =
-    "extracted" in error
-      ? (error as { extracted?: unknown }).extracted
-      : undefined;
-
-  return { raw, extracted };
-}
-
-function getStatusCode(error: unknown): number | undefined {
-  if (typeof error !== "object" || error === null) return undefined;
-  if (!("status" in error)) return undefined;
-  const status = (error as { status?: unknown }).status;
-  return typeof status === "number" ? status : undefined;
-}
-
-function getErrorCode(error: unknown): string | undefined {
-  if (typeof error !== "object" || error === null) return undefined;
-  if (!("code" in error)) return undefined;
-  const code = (error as { code?: unknown }).code;
-  return typeof code === "string" ? code : undefined;
-}
 
 export async function POST(req: Request) {
   try {
@@ -78,7 +60,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const actaJson = await generateActaFromTranscript(transcript);
+    const { data: actaJson } = await extractStructuredActa(transcript);
 
     let actaUnknown: unknown = actaJson;
     if (typeof actaJson === "string") {
@@ -94,6 +76,8 @@ export async function POST(req: Request) {
 
     const parsed = ActaSchema.safeParse(actaUnknown);
     if (!parsed.success) {
+      console.error("=== ACTA SCHEMA VALIDATION FAILED ===");
+      console.error("Issues:", JSON.stringify(parsed.error.issues, null, 2));
       return NextResponse.json(
         {
           error: "Invalid acta structure",
@@ -103,48 +87,38 @@ export async function POST(req: Request) {
       );
     }
 
-    const pdfBytes = await generateActaPDF(parsed.data, notes);
+    const mapped = mapStructuredActaToPdfFormat(parsed.data);
+    const html = generateActaHtml({ ...mapped });
 
-    return new Response(Buffer.from(pdfBytes), {
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+    const page = await browser.newPage();
+    await page.setContent(html, { waitUntil: "networkidle0" });
+    const pdf = await page.pdf({ format: "A4", printBackground: true });
+    await browser.close();
+
+    return new Response(Buffer.from(pdf), {
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": 'attachment; filename="acta.pdf"',
       },
     });
   } catch (error) {
-    console.error(error);
+    console.error("[generate-acta]", error);
+
     const message =
-      error instanceof Error ? error.message : "Internal server error";
+      error instanceof Error ? error.message : "AI processing failed";
 
-    const debug = pickDebugInfo(error);
-    const status = getStatusCode(error);
-    const code = getErrorCode(error);
+    // JSON parsing / structure errors → 422
+    const isJsonError =
+      message.includes("invalid JSON") || message.includes("Invalid acta structure");
+    const status = isJsonError ? 422 : 500;
 
-    if (status === 401 || code === "invalid_api_key") {
-      return NextResponse.json(
-        {
-          error:
-            "Invalid GROQ_API_KEY. Revisa tu clave de Groq (debería empezar por 'gsk_') y reinicia el servidor.",
-          ...debug,
-        },
-        { status: 401 }
-      );
-    }
-
-    if (message.includes("GROQ_API_KEY")) {
-      return NextResponse.json(
-        { error: message, ...debug },
-        { status: 500 }
-      );
-    }
-
-    if (message.includes("Invalid JSON returned by Groq")) {
-      return NextResponse.json(
-        { error: message, ...debug },
-        { status: 422 }
-      );
-    }
-
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: message },
+      { status }
+    );
   }
 }
