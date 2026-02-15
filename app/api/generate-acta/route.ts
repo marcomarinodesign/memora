@@ -7,7 +7,8 @@
  * Never log or expose API keys.
  */
 import { NextResponse } from "next/server";
-import puppeteer from "puppeteer";
+import chromium from "@sparticuz/chromium";
+import puppeteer from "puppeteer-core";
 import { extractStructuredActa } from "@/lib/ai/aiUtils";
 import { ActaSchema } from "@/app/schema/acta.schema";
 import { mapStructuredActaToPdfFormat } from "@/lib/acta/actaMapper";
@@ -91,8 +92,10 @@ export async function POST(req: Request) {
     const html = generateActaHtml({ ...mapped });
 
     const browser = await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: null,
+      executablePath: await chromium.executablePath(),
       headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "networkidle0" });

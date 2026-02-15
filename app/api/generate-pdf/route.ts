@@ -1,6 +1,7 @@
 export const runtime = "nodejs";
 
-import puppeteer from "puppeteer";
+import chromium from "@sparticuz/chromium";
+import puppeteer from "puppeteer-core";
 import { NextResponse } from "next/server";
 import { generateActaHtml } from "@/lib/generateActaHtml";
 
@@ -11,6 +12,9 @@ export async function POST(req: Request) {
     const html = generateActaHtml(data);
 
     const browser = await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: null,
+      executablePath: await chromium.executablePath(),
       headless: true,
     });
 
