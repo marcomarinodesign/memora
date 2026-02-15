@@ -2,15 +2,15 @@
 
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 const MENU_ITEMS = [
-  { label: "Como funciona", href: "/como-funciona" },
-  { label: "FAQ", href: "/#faq" },
-  { label: "Pricing", href: "/#pricing" },
-  { label: "Contactos", href: "/#contactos" },
+  { label: "Generar acta", href: "/generar-acta" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Contacto", href: "/contacto" },
 ] as const;
 
 interface NavMenuItemsProps {
@@ -39,7 +39,7 @@ export function LpNavbar1() {
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   return (
-    <nav className="bg-background sticky top-0 isolate z-50 py-3.5 md:py-4">
+    <nav className="bg-white sticky top-0 isolate z-50 py-3.5 md:py-4">
       <div className="relative container m-auto flex flex-col justify-between gap-4 px-6 md:flex-row md:items-center md:gap-8">
         <div className="flex items-center justify-between md:flex-none">
           <Link href="/" aria-label="Go to homepage">
@@ -54,7 +54,7 @@ export function LpNavbar1() {
           </Link>
           <Button
             variant="ghost"
-            size="icon"
+            type="button"
             className="flex items-center justify-center md:hidden"
             onClick={toggleMenu}
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -66,18 +66,18 @@ export function LpNavbar1() {
         {/* Desktop Navigation */}
         <div className="hidden flex-1 items-center gap-6 md:flex">
           <NavMenuItems className="mx-auto" />
-          <Link href="/#generator">
-            <Button>Genera acta</Button>
-          </Link>
+          <Button variant="primary" href="/generar-acta">
+            Generar acta
+          </Button>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="flex w-full flex-col justify-end gap-5 pb-2.5 md:hidden">
             <NavMenuItems />
-            <Link href="/#generator">
-              <Button className="w-full">Genera acta</Button>
-            </Link>
+            <Button variant="primary" href="/generar-acta" className="w-full">
+              Generar acta
+            </Button>
           </div>
         )}
       </div>

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useId, useState } from "react";
+import { Button } from "@/components/ui/button";
 
 function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -42,10 +43,9 @@ function CloseIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 const links = [
-  { href: "/#como-funciona", label: "Como funciona" },
-  { href: "/#faq", label: "FAQ" },
-  { href: "/#pricing", label: "Pricing" },
-  { href: "/#contactos", label: "Contactos" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/contacto", label: "Contacto" },
 ];
 
 export function SiteNavbar() {
@@ -94,12 +94,9 @@ export function SiteNavbar() {
           </nav>
 
           <div className="ml-auto hidden md:block">
-            <Link
-              href="/#generator"
-              className="inline-flex h-10 items-center justify-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            >
+            <Button variant="primary" href="/#generator">
               Genera acta
-            </Link>
+            </Button>
           </div>
 
           <button
@@ -130,13 +127,14 @@ export function SiteNavbar() {
                   {l.label}
                 </Link>
               ))}
-              <Link
+              <Button
+                variant="primary"
                 href="/#generator"
+                className="mt-2 w-full"
                 onClick={() => setOpen(false)}
-                className="mt-2 inline-flex h-11 items-center justify-center rounded-full bg-primary px-7 text-base font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 Genera acta
-              </Link>
+              </Button>
             </div>
           </div>
         </div>

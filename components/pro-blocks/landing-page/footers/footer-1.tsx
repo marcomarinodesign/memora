@@ -5,10 +5,10 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 
 const MAIN_NAV_LINKS = [
-  { href: "/como-funciona", label: "Como funciona" },
-  { href: "/#faq", label: "FAQ" },
-  { href: "/#pricing", label: "Pricing" },
-  { href: "/#contactos", label: "Contactos" },
+  { href: "/generar-acta", label: "Generar acta" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/contacto", label: "Contacto" },
 ];
 
 const LEGAL_LINKS = [
@@ -20,7 +20,7 @@ const LEGAL_LINKS = [
 export function Footer1() {
   return (
     <footer
-      className="section-padding-y bg-[var(--black)] text-[var(--off-white)] text-sm"
+      className="section-padding-y bg-[var(--black)] text-[var(--off-white)] text-body-sm"
       role="contentinfo"
       aria-label="Site footer"
     >

@@ -1,65 +1,65 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+"use client";
 
-import { cn } from "@/lib/utils"
+import type { ButtonHTMLAttributes, ReactNode } from "react";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
-const buttonVariants = cva(
-  "inline-flex w-full md:w-fit items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-  {
-    variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
-        outline:
-          "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost:
-          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default:
-          "h-10 px-5 text-sm has-[>svg]:px-4 md:h-11 md:px-6 md:text-base",
-        xs: "h-8 gap-1 px-3 text-xs has-[>svg]:px-2.5 [&_svg:not([class*='size-'])]:size-3 md:h-9 md:px-4 md:text-sm",
-        sm: "h-9 gap-1.5 px-4 text-sm has-[>svg]:px-3.5 md:h-10 md:px-5 md:text-sm",
-        lg: "h-11 px-6 text-base has-[>svg]:px-5 md:h-12 md:px-7 md:text-base",
-        icon: "size-10 md:size-11",
-        "icon-xs": "size-8 [&_svg:not([class*='size-'])]:size-3 md:size-9",
-        "icon-sm": "size-9 md:size-10",
-        "icon-lg": "size-11 md:size-12",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-)
+type ButtonVariant = "primary" | "secondary" | "ghost";
 
-function Button({
-  className,
-  variant = "default",
-  size = "default",
-  asChild = false,
-  ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }) {
-  const Comp = asChild ? Slot : "button"
-
-  return (
-    <Comp
-      data-slot="button"
-      data-variant={variant}
-      data-size={size}
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    />
-  )
+interface ButtonProps
+  extends Omit<
+    ButtonHTMLAttributes<HTMLButtonElement>,
+    "className" | "children"
+  > {
+  variant?: ButtonVariant;
+  children: ReactNode;
+  type?: "button" | "submit";
+  href?: string;
+  className?: string;
 }
 
-export { Button, buttonVariants }
+const variantClasses: Record<ButtonVariant, string> = {
+  primary: "cta-primary",
+  secondary: "cta-secondary",
+  ghost:
+    "bg-transparent text-foreground hover:bg-muted rounded-full size-10 md:size-11",
+};
+
+export function Button({
+  variant = "primary",
+  children,
+  onClick,
+  type = "button",
+  href,
+  className,
+  disabled,
+  ...rest
+}: ButtonProps) {
+  const baseClass =
+    "inline-flex items-center justify-center border-none transition-[background] duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
+  const classes = cn(baseClass, variantClasses[variant], className);
+
+  if (href !== undefined) {
+    return (
+      <Link
+        href={href}
+        className={classes}
+        onClick={onClick as unknown as React.MouseEventHandler<HTMLAnchorElement>}
+      >
+        {children}
+      </Link>
+    );
+  }
+
+  return (
+    <button
+      type={type}
+      className={classes}
+      onClick={onClick}
+      disabled={disabled}
+      {...rest}
+    >
+      {children}
+    </button>
+  );
+}
