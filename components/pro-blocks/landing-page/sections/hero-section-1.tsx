@@ -19,7 +19,7 @@ export function HeroSection1({
     <section
       className={`container mx-auto max-w-4xl px-6 pt-16 md:pt-24 pb-20 md:pb-28 text-center ${className}`}
     >
-      <h1 className="text-h1 font-bold text-foreground tracking-tight">
+      <h1 className="max-w-[800px] heading-xl text-foreground text-[64px] font-extrabold tracking-[-2px]">
         {title}
       </h1>
       <p className="mt-5 text-body text-muted-foreground max-w-2xl mx-auto">

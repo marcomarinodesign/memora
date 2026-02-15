@@ -133,7 +133,7 @@ export default function FaqPage() {
       {/* Hero */}
       <section className="container mx-auto max-w-4xl px-6 pt-20 md:pt-28 pb-12 md:pb-16">
         <div className="text-center space-y-6">
-          <h1 className="max-w-4xl mx-auto heading-xl text-foreground">Preguntas frecuentes</h1>
+          <h1 className="max-w-[800px] mx-auto heading-xl text-foreground text-[64px] font-extrabold tracking-[-2px]">Preguntas frecuentes</h1>
           <p className="text-body text-muted-foreground max-w-2xl mx-auto">
             Todo lo que necesitas saber sobre Memora. ¿No encuentras tu
             respuesta?{" "}

@@ -6,7 +6,7 @@
 import { NextResponse } from "next/server";
 import { extractStructuredActa } from "@/lib/ai/aiUtils";
 import { ActaSchema } from "@/app/schema/acta.schema";
-import { generateLegalActaPdf } from "@/lib/acta/generateLegalActaPdf";
+import { generateActaPdf } from "@/lib/pdf/generatePdf";
 
 export const runtime = "nodejs";
 
@@ -81,7 +81,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const pdf = await generateLegalActaPdf(parsed.data);
+    const pdf = await generateActaPdf(parsed.data);
 
     return new Response(pdf as unknown as BodyInit, {
       headers: {

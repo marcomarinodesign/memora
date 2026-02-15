@@ -16,8 +16,8 @@ export function HeroSection() {
             <span> Genera actas en segundos </span>
           </Badge>
 
-          <div className="max-w-screen-md mx-auto text-center text-4xl md:text-6xl font-bold">
-            <h1>
+          <div className="max-w-screen-md mx-auto text-center">
+            <h1 className="max-w-[800px] mx-auto heading-xl text-foreground text-[64px] font-extrabold tracking-[-2px]">
               Convierte tus reuniones en
               <span className="text-transparent px-2 bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text">
                 actas

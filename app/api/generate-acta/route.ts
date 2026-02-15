@@ -1,10 +1,10 @@
 // app/api/generate-acta/route.ts
 /**
- * POST with JSON body: acta or pre-mapped data → generateLegalActaPdf → PDF
+ * POST with JSON body: acta or pre-mapped data → generateActaPdf → PDF
  * Used by /acta page. Home flow uses /api/generate-pdf (FormData).
  */
 import { NextResponse } from "next/server";
-import { generateLegalActaPdf } from "@/lib/acta/generateLegalActaPdf";
+import { generateActaPdf } from "@/lib/pdf/generatePdf";
 import type { Acta } from "@/app/schema/acta.schema";
 import type { PdfActaFormat } from "@/lib/acta/actaMapper";
 
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const pdf = await generateLegalActaPdf(body as Acta | PdfActaFormat);
+    const pdf = await generateActaPdf(body as Acta | PdfActaFormat);
     return new Response(pdf as unknown as BodyInit, {
       headers: {
         "Content-Type": "application/pdf",

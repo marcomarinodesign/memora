@@ -1,6 +1,5 @@
 /**
- * Maps AI-structured acta output to the legal PDF format expected by generateActaHtml.
- * Does not modify generateActaHtml or the AI template.
+ * Maps AI-structured acta output to the legal PDF format expected by the single HTML template (lib/pdf/generateActaHtml).
  */
 
 import type { Acta } from "@/app/schema/acta.schema";

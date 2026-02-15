@@ -185,9 +185,9 @@ export default function GenerarActaPage() {
     <main className="min-h-screen flex items-center justify-center bg-background px-4 py-12">
       <div className="w-full max-w-2xl bg-card border border-border rounded-2xl p-8 md:p-10 space-y-6">
         <div className="text-center space-y-3">
-          <h1 className="heading-lg text-foreground">
+          <h2 className="max-w-[800px] heading-lg text-foreground">
             Generar acta de reunión
-          </h1>
+          </h2>
           <p className="text-body-sm text-muted-foreground">
             Sube un audio o pega la transcripción para generar tu acta automáticamente
           </p>

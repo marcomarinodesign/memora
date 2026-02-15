@@ -7,18 +7,19 @@ export function CleanLanding() {
   return (
     <main className="min-h-screen bg-background">
       {/* Hero Section - Notion-inspired minimal */}
-      <section className="container mx-auto max-w-5xl px-6 pt-24 pb-20 md:pt-32 md:pb-28">
+      <section className="container mx-auto max-w-5xl px-0 pt-[100px] pb-[100px]">
         <div className="flex flex-col items-center text-center space-y-8">
-          {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted border border-border">
-            <Sparkles className="size-4 text-primary" />
-            <span className="text-sm font-medium text-foreground">
-              Ahora con transcripción de audio automática
-            </span>
+          {/* Hero image: 768×180, responsive placeholder (sustituir por <img src="..." alt="..." />) */}
+          <div
+            className="w-full max-w-[768px] aspect-[768/180] rounded-lg bg-muted border border-border overflow-hidden"
+            role="img"
+            aria-label="Imagen de cabecera"
+          >
+            {/* Placeholder gris — reemplazar por: <img src="/tu-imagen.jpg" alt="..." className="w-full h-full object-cover" /> */}
           </div>
 
           {/* Main headline */}
-          <h1 className="max-w-4xl heading-xl text-foreground">
+          <h1 className="max-w-[800px] heading-xl text-foreground text-[64px] font-extrabold tracking-[-2px]">
             De reunión a acta profesional en minutos
           </h1>
 

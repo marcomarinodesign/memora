@@ -50,7 +50,7 @@ interface ActaTemplateProps {
 export default function ActaTemplate({ data }: ActaTemplateProps) {
   return (
     <div className="acta-template p-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Acta de reunión</h1>
+      <h1 className="max-w-[800px] heading-xl text-foreground text-[64px] font-extrabold tracking-[-2px] mb-4">Acta de reunión</h1>
       <p className="text-sm text-gray-600">
         {data.comunidad.nombre} · {data.comunidad.ciudad}
       </p>

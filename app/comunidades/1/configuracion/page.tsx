@@ -27,7 +27,7 @@ export default function ConfiguracionPage() {
 
   return (
     <div className="flex flex-col gap-6 p-6 max-w-2xl mx-auto">
-      <h1 className="text-xl font-semibold">Configuración</h1>
+      <h1 className="max-w-[800px] heading-xl text-foreground text-[64px] font-extrabold tracking-[-2px]">Configuración</h1>
 
       <section className="border rounded-lg p-4 bg-white shadow-sm">
         <h2 className="text-sm font-medium text-gray-500 mb-2">Comunidad</h2>
