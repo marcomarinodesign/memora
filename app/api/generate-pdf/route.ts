@@ -1,7 +1,5 @@
 export const runtime = "nodejs";
 
-import chromium from "@sparticuz/chromium";
-import puppeteer from "puppeteer-core";
 import { NextResponse } from "next/server";
 import { generateActaHtml } from "@/lib/generateActaHtml";
 
@@ -11,12 +9,25 @@ export async function POST(req: Request) {
 
     const html = generateActaHtml(data);
 
-    const browser = await puppeteer.launch({
-      args: chromium.args,
-      defaultViewport: null,
-      executablePath: await chromium.executablePath(),
-      headless: true,
-    });
+    const isVercel = !!process.env.VERCEL;
+
+    let browser;
+    if (isVercel) {
+      const puppeteer = await import("puppeteer-core");
+      const chromium = await import("@sparticuz/chromium");
+      const chrom = chromium.default;
+      browser = await puppeteer.default.launch({
+        args: chrom.args,
+        defaultViewport: null,
+        executablePath: await chrom.executablePath(),
+        headless: true,
+      });
+    } else {
+      const puppeteer = await import("puppeteer");
+      browser = await puppeteer.default.launch({
+        headless: true,
+      });
+    }
 
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "networkidle0" });
