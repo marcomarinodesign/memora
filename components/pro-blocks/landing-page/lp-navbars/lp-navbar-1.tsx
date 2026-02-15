@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -42,15 +41,12 @@ export function LpNavbar1() {
     <nav className="bg-white sticky top-0 isolate z-50 py-3.5 md:py-4">
       <div className="relative container m-auto flex flex-col justify-between gap-4 px-6 md:flex-row md:items-center md:gap-8">
         <div className="flex items-center justify-between md:flex-none">
-          <Link href="/" aria-label="Go to homepage">
-            <Image
-              src="/brand/memora.svg"
-              alt="memora"
-              width={59}
-              height={9}
-              priority
-              className="h-4 w-auto dark:invert"
-            />
+          <Link
+            href="/"
+            aria-label="Go to homepage"
+            className="font-bold text-foreground text-base"
+          >
+            noah.estate
           </Link>
           <Button
             variant="ghost"
