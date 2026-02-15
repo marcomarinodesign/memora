@@ -7,11 +7,11 @@
  * Never log or expose API keys.
  */
 import { NextResponse } from "next/server";
-import puppeteer from "puppeteer";
 import { extractStructuredActa } from "@/lib/ai/aiUtils";
 import { ActaSchema } from "@/app/schema/acta.schema";
 import { mapStructuredActaToPdfFormat } from "@/lib/acta/actaMapper";
 import { generateActaHtml } from "@/lib/generateActaHtml";
+import { launchBrowser } from "@/lib/puppeteer";
 
 export const runtime = "nodejs";
 
@@ -90,7 +90,7 @@ export async function POST(req: Request) {
     const mapped = mapStructuredActaToPdfFormat(parsed.data);
     const html = generateActaHtml({ ...mapped });
 
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await launchBrowser();
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "networkidle0" });
     const pdf = await page.pdf({ format: "A4", printBackground: true });

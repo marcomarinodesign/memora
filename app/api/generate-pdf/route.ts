@@ -1,8 +1,8 @@
 export const runtime = "nodejs";
 
-import puppeteer from "puppeteer";
 import { NextResponse } from "next/server";
 import { generateActaHtml } from "@/lib/generateActaHtml";
+import { launchBrowser } from "@/lib/puppeteer";
 
 export async function POST(req: Request) {
   try {
@@ -10,9 +10,7 @@ export async function POST(req: Request) {
 
     const html = generateActaHtml(data);
 
-    const browser = await puppeteer.launch({
-      headless: true,
-    });
+    const browser = await launchBrowser();
 
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "networkidle0" });
