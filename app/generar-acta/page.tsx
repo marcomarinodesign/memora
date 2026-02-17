@@ -216,36 +216,11 @@ export default function GenerarActaPage() {
           className="rounded-xl p-6 space-y-5"
           style={{
             borderRadius: "var(--radius-xl)",
-            backgroundColor: "var(--color-surface-2)",
-            border: "1px solid var(--color-border-subtle)",
+            backgroundColor: "var(--bg-body)",
+            border: "none",
             padding: "var(--space-6)",
           }}
         >
-          <div
-            className="flex items-center gap-2"
-            style={{
-              gap: "var(--space-2)",
-              fontSize: "var(--text-sm)",
-              fontWeight: "var(--weight-medium)",
-              color: "var(--color-text-primary)",
-            }}
-          >
-            <span
-              className="inline-flex items-center justify-center size-6 rounded-full text-xs font-bold"
-              style={{
-                width: "var(--space-6)",
-                height: "var(--space-6)",
-                borderRadius: "var(--radius-full)",
-                backgroundColor: "var(--color-btn-primary-bg)",
-                color: "var(--color-btn-primary-text)",
-                fontSize: "var(--text-xs)",
-              }}
-            >
-              1
-            </span>
-            <span>Sube tu contenido</span>
-          </div>
-
           <div className="space-y-2 flex flex-col items-center">
             <input
               id="acta-file"
@@ -301,7 +276,7 @@ export default function GenerarActaPage() {
             onDragOver={(e) => e.preventDefault()}
             placeholder="Pega la transcripción aquí…&#10;&#10;Opcional: añade detalles extra (asistentes, fecha/hora, acuerdos, votaciones, tareas, incidencias…)."
             className="input textarea w-full"
-            style={{ minHeight: "14rem", padding: "var(--space-3)" }}
+            style={{ minHeight: "120px", padding: "var(--space-3)" }}
           />
         </section>
 
