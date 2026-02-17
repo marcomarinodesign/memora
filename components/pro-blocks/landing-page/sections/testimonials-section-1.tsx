@@ -34,34 +34,84 @@ export function TestimonialsSection1({
 }: TestimonialsSection1Props) {
   return (
     <section
-      className={`border-t border-border bg-muted/30 py-16 md:py-24 ${className}`}
+      className={`border-t py-16 md:py-24 ${className}`}
+      style={{
+        borderColor: "var(--color-border-subtle)",
+        backgroundColor: "var(--color-surface-2)",
+        paddingTop: "var(--space-16)",
+        paddingBottom: "var(--space-16)",
+      }}
       aria-labelledby="testimonials-heading"
     >
-      <div className="container mx-auto max-w-4xl px-6">
+      <div
+        className="container mx-auto max-w-4xl px-6"
+        style={{ paddingLeft: "var(--space-6)", paddingRight: "var(--space-6)" }}
+      >
         <h2
           id="testimonials-heading"
-          className="text-h2 font-bold text-foreground text-center"
+          className="heading-lg text-center"
+          style={{ color: "var(--color-text-primary)" }}
         >
           {title}
         </h2>
         {subtitle && (
-          <p className="mt-3 text-body text-center text-muted-foreground">
+          <p
+            className="mt-3 text-center"
+            style={{
+              marginTop: "var(--space-3)",
+              fontSize: "var(--text-base)",
+              color: "var(--color-text-secondary)",
+            }}
+          >
             {subtitle}
           </p>
         )}
-        <div className="mt-12 grid gap-8 md:grid-cols-2">
+        <div
+          className="mt-12 grid gap-8 md:grid-cols-2"
+          style={{ marginTop: "var(--space-12)", gap: "var(--space-8)" }}
+        >
           {testimonials.map((t, i) => (
             <blockquote
               key={i}
-              className="rounded-xl border border-border bg-card p-6"
+              className="card p-6"
+              style={{
+                padding: "var(--space-6)",
+                borderRadius: "var(--radius-xl)",
+                border: "1px solid var(--color-border-subtle)",
+                backgroundColor: "var(--color-surface-1)",
+              }}
             >
-              <p className="text-body text-foreground italic">&ldquo;{t.quote}&rdquo;</p>
-              <footer className="mt-4">
-                <cite className="not-italic text-body-sm font-medium text-foreground">
+              <p
+                className="italic"
+                style={{
+                  fontSize: "var(--text-base)",
+                  color: "var(--color-text-primary)",
+                }}
+              >
+                &ldquo;{t.quote}&rdquo;
+              </p>
+              <footer
+                className="mt-4"
+                style={{ marginTop: "var(--space-4)" }}
+              >
+                <cite
+                  className="not-italic font-medium"
+                  style={{
+                    fontSize: "var(--text-sm)",
+                    fontWeight: "var(--weight-medium)",
+                    color: "var(--color-text-primary)",
+                    fontStyle: "normal",
+                  }}
+                >
                   {t.author}
                 </cite>
                 {t.role && (
-                  <span className="text-body-sm text-muted-foreground">
+                  <span
+                    style={{
+                      fontSize: "var(--text-sm)",
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
                     {" "}
                     — {t.role}
                   </span>

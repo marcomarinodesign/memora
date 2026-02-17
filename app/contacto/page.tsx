@@ -7,7 +7,7 @@ import { Mail, MessageSquare, Clock } from "lucide-react";
 type FormStatus = "idle" | "loading" | "success" | "error";
 
 const inputClass =
-  "w-full rounded-lg border border-input bg-background px-4 py-3 text-body-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+  "input w-full";
 
 export default function ContactoPage() {
   const [status, setStatus] = useState<FormStatus>("idle");
@@ -29,19 +29,48 @@ export default function ContactoPage() {
   };
 
   return (
-    <main className="min-h-screen" style={{ backgroundColor: "#f0efea" }}>
+    <main
+      className="min-h-screen"
+      style={{ backgroundColor: "var(--color-bg-base)" }}
+    >
       {/* Hero */}
       <section className="container mx-auto max-w-4xl px-6 pt-[100px] pb-12 md:pb-16">
         <div className="text-center space-y-6">
           {/* Image Placeholder */}
-          <div className="w-full max-w-[760px] h-[180px] mx-auto bg-muted/50 border-2 border-dashed border-border rounded-lg flex items-center justify-center mb-8">
-            <span className="text-sm text-muted-foreground">
+          <div
+            className="w-full max-w-[760px] h-[180px] mx-auto border-2 border-dashed rounded-lg flex items-center justify-center mb-8"
+            style={{
+              backgroundColor: "var(--color-surface-2)",
+              borderColor: "var(--color-border-default)",
+              borderRadius: "var(--radius-lg)",
+            }}
+          >
+            <span
+              style={{
+                fontSize: "var(--text-sm)",
+                color: "var(--color-text-secondary)",
+              }}
+            >
               760 × 180 px
             </span>
           </div>
 
-          <h1 className="max-w-[800px] mx-auto heading-xl text-foreground text-[64px] font-extrabold tracking-[-2px]">Hablemos</h1>
-          <p className="text-body text-muted-foreground max-w-2xl mx-auto">
+          <h1
+            className="max-w-[800px] mx-auto heading-xl"
+            style={{
+              color: "var(--color-text-primary)",
+              letterSpacing: "var(--tracking-tight)",
+            }}
+          >
+            Hablemos
+          </h1>
+          <p
+            className="max-w-2xl mx-auto"
+            style={{
+              fontSize: "var(--text-base)",
+              color: "var(--color-text-secondary)",
+            }}
+          >
             ¿Tienes preguntas sobre Noah? ¿Necesitas ayuda o quieres hablar
             de un plan Enterprise? Estamos aquí para ayudarte.
           </p>
@@ -52,48 +81,156 @@ export default function ContactoPage() {
       <section className="container mx-auto max-w-5xl px-6 pb-20 md:pb-28">
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {/* Email */}
-          <div className="bg-card border border-border rounded-2xl p-6 text-center">
-            <div className="inline-flex items-center justify-center size-12 rounded-xl bg-blue-100 text-blue-600 mb-4">
+          <div
+            className="card rounded-2xl p-6 text-center"
+            style={{
+              padding: "var(--space-6)",
+              borderRadius: "var(--radius-2xl)",
+              border: "1px solid var(--color-border-subtle)",
+              backgroundColor: "var(--color-surface-1)",
+            }}
+          >
+            <div
+              className="inline-flex items-center justify-center size-12 rounded-xl mb-4"
+              style={{
+                width: "var(--space-12)",
+                height: "var(--space-12)",
+                borderRadius: "var(--radius-xl)",
+                backgroundColor: "var(--color-info-subtle)",
+                color: "var(--color-info-text)",
+                marginBottom: "var(--space-4)",
+              }}
+            >
               <Mail className="size-6" />
             </div>
-            <h3 className="font-semibold text-foreground mb-2">Email</h3>
-            <p className="text-sm text-muted-foreground mb-3">
+            <h3
+              className="font-semibold mb-2"
+              style={{
+                color: "var(--color-text-primary)",
+                fontWeight: "var(--weight-semibold)",
+                marginBottom: "var(--space-2)",
+              }}
+            >
+              Email
+            </h3>
+            <p
+              className="text-sm mb-3"
+              style={{
+                fontSize: "var(--text-sm)",
+                color: "var(--color-text-secondary)",
+                marginBottom: "var(--space-3)",
+              }}
+            >
               Escríbenos directamente
             </p>
             <a
               href="mailto:soporte@noah.estate"
-              className="text-sm font-medium text-primary hover:underline underline-offset-4"
+              className="text-sm font-medium hover:underline underline-offset-4"
+              style={{
+                fontSize: "var(--text-sm)",
+                fontWeight: "var(--weight-medium)",
+                color: "var(--color-accent-text)",
+              }}
             >
               soporte@noah.estate
             </a>
           </div>
 
           {/* Support */}
-          <div className="bg-card border border-border rounded-2xl p-6 text-center">
-            <div className="inline-flex items-center justify-center size-12 rounded-xl bg-blue-100 text-blue-600 mb-4">
+          <div
+            className="card rounded-2xl p-6 text-center"
+            style={{
+              padding: "var(--space-6)",
+              borderRadius: "var(--radius-2xl)",
+              border: "1px solid var(--color-border-subtle)",
+              backgroundColor: "var(--color-surface-1)",
+            }}
+          >
+            <div
+              className="inline-flex items-center justify-center size-12 rounded-xl mb-4"
+              style={{
+                width: "var(--space-12)",
+                height: "var(--space-12)",
+                borderRadius: "var(--radius-xl)",
+                backgroundColor: "var(--color-info-subtle)",
+                color: "var(--color-info-text)",
+                marginBottom: "var(--space-4)",
+              }}
+            >
               <MessageSquare className="size-6" />
             </div>
-            <h3 className="font-semibold text-foreground mb-2">Soporte</h3>
-            <p className="text-sm text-muted-foreground mb-3">
+            <h3
+              className="font-semibold mb-2"
+              style={{
+                color: "var(--color-text-primary)",
+                fontWeight: "var(--weight-semibold)",
+                marginBottom: "var(--space-2)",
+              }}
+            >
+              Soporte
+            </h3>
+            <p
+              className="text-sm mb-3"
+              style={{
+                fontSize: "var(--text-sm)",
+                color: "var(--color-text-secondary)",
+                marginBottom: "var(--space-3)",
+              }}
+            >
               Base de conocimiento
             </p>
             <a
               href="/faq"
-              className="text-sm font-medium text-primary hover:underline underline-offset-4"
+              className="text-sm font-medium hover:underline underline-offset-4"
+              style={{
+                fontSize: "var(--text-sm)",
+                fontWeight: "var(--weight-medium)",
+                color: "var(--color-accent-text)",
+              }}
             >
               Ver preguntas frecuentes
             </a>
           </div>
 
           {/* Response time */}
-          <div className="bg-card border border-border rounded-2xl p-6 text-center">
-            <div className="inline-flex items-center justify-center size-12 rounded-xl bg-blue-100 text-blue-600 mb-4">
+          <div
+            className="card rounded-2xl p-6 text-center"
+            style={{
+              padding: "var(--space-6)",
+              borderRadius: "var(--radius-2xl)",
+              border: "1px solid var(--color-border-subtle)",
+              backgroundColor: "var(--color-surface-1)",
+            }}
+          >
+            <div
+              className="inline-flex items-center justify-center size-12 rounded-xl mb-4"
+              style={{
+                width: "var(--space-12)",
+                height: "var(--space-12)",
+                borderRadius: "var(--radius-xl)",
+                backgroundColor: "var(--color-info-subtle)",
+                color: "var(--color-info-text)",
+                marginBottom: "var(--space-4)",
+              }}
+            >
               <Clock className="size-6" />
             </div>
-            <h3 className="font-semibold text-foreground mb-2">
+            <h3
+              className="font-semibold mb-2"
+              style={{
+                color: "var(--color-text-primary)",
+                fontWeight: "var(--weight-semibold)",
+                marginBottom: "var(--space-2)",
+              }}
+            >
               Tiempo de respuesta
             </h3>
-            <p className="text-sm text-muted-foreground">
+            <p
+              style={{
+                fontSize: "var(--text-sm)",
+                color: "var(--color-text-secondary)",
+              }}
+            >
               Menos de 24 horas en días laborables
             </p>
           </div>
@@ -101,11 +238,34 @@ export default function ContactoPage() {
 
         {/* Contact form */}
         <div className="max-w-2xl mx-auto">
-          <div className="bg-card border border-border rounded-2xl p-8 md:p-10">
-            <h2 className="text-2xl font-bold text-foreground mb-2">
+          <div
+            className="card rounded-2xl p-8 md:p-10"
+            style={{
+              padding: "var(--space-8)",
+              borderRadius: "var(--radius-2xl)",
+              border: "1px solid var(--color-border-subtle)",
+              backgroundColor: "var(--color-surface-1)",
+            }}
+          >
+            <h2
+              className="text-2xl font-bold mb-2"
+              style={{
+                fontSize: "var(--text-h3)",
+                fontWeight: "var(--weight-bold)",
+                color: "var(--color-text-primary)",
+                marginBottom: "var(--space-2)",
+              }}
+            >
               Envíanos un mensaje
             </h2>
-            <p className="text-body-sm text-muted-foreground mb-8">
+            <p
+              className="mb-8"
+              style={{
+                fontSize: "var(--text-sm)",
+                color: "var(--color-text-secondary)",
+                marginBottom: "var(--space-8)",
+              }}
+            >
               Completa el formulario y te responderemos lo antes posible.
             </p>
 
@@ -114,7 +274,8 @@ export default function ContactoPage() {
               <div>
                 <label
                   htmlFor="contact-name"
-                  className="block text-sm font-medium text-foreground mb-2"
+                  className="label block mb-2"
+                  style={{ marginBottom: "var(--space-2)" }}
                 >
                   Nombre completo
                 </label>
@@ -133,7 +294,8 @@ export default function ContactoPage() {
               <div>
                 <label
                   htmlFor="contact-email"
-                  className="block text-sm font-medium text-foreground mb-2"
+                  className="label block mb-2"
+                  style={{ marginBottom: "var(--space-2)" }}
                 >
                   Email
                 </label>
@@ -152,10 +314,16 @@ export default function ContactoPage() {
               <div>
                 <label
                   htmlFor="contact-company"
-                  className="block text-sm font-medium text-foreground mb-2"
+                  className="label block mb-2"
+                  style={{ marginBottom: "var(--space-2)" }}
                 >
                   Empresa{" "}
-                  <span className="text-muted-foreground font-normal">
+                  <span
+                    style={{
+                      color: "var(--color-text-secondary)",
+                      fontWeight: "var(--weight-regular)",
+                    }}
+                  >
                     (opcional)
                   </span>
                 </label>
@@ -173,7 +341,8 @@ export default function ContactoPage() {
               <div>
                 <label
                   htmlFor="contact-message"
-                  className="block text-sm font-medium text-foreground mb-2"
+                  className="label block mb-2"
+                  style={{ marginBottom: "var(--space-2)" }}
                 >
                   Mensaje
                 </label>
@@ -191,15 +360,34 @@ export default function ContactoPage() {
               {/* Submit */}
               <div className="flex flex-col items-center gap-3 pt-2">
                 {status === "success" && (
-                  <div className="w-full p-4 rounded-lg bg-green-50 border border-green-200">
-                    <p className="text-sm text-green-800 text-center font-medium">
+                  <div
+                    className="alert alert-success w-full"
+                    style={{ padding: "var(--space-4)", borderRadius: "var(--radius-lg)" }}
+                  >
+                    <p
+                      className="text-sm text-center font-medium"
+                      style={{
+                        fontSize: "var(--text-sm)",
+                        color: "var(--color-success-text)",
+                        fontWeight: "var(--weight-medium)",
+                      }}
+                    >
                       ✓ Mensaje enviado correctamente. Te responderemos pronto.
                     </p>
                   </div>
                 )}
                 {status === "error" && (
-                  <div className="w-full p-4 rounded-lg bg-red-50 border border-red-200">
-                    <p className="text-sm text-red-800 text-center">
+                  <div
+                    className="alert alert-error w-full"
+                    style={{ padding: "var(--space-4)", borderRadius: "var(--radius-lg)" }}
+                  >
+                    <p
+                      className="text-sm text-center"
+                      style={{
+                        fontSize: "var(--text-sm)",
+                        color: "var(--color-error-text)",
+                      }}
+                    >
                       Ha ocurrido un error. Por favor, intenta de nuevo.
                     </p>
                   </div>
@@ -207,8 +395,9 @@ export default function ContactoPage() {
                 <Button
                   type="submit"
                   variant="primary"
+                  size="lg"
                   disabled={status === "loading" || status === "success"}
-                  className="w-full md:w-auto min-w-[200px] py-6"
+                  className="w-full md:w-auto min-w-[200px]"
                 >
                   {status === "loading"
                     ? "Enviando..."
@@ -221,8 +410,13 @@ export default function ContactoPage() {
           </div>
 
           {/* Additional info */}
-          <div className="mt-8 text-center">
-            <p className="text-sm text-muted-foreground">
+          <div className="mt-8 text-center" style={{ marginTop: "var(--space-8)" }}>
+            <p
+              style={{
+                fontSize: "var(--text-sm)",
+                color: "var(--color-text-secondary)",
+              }}
+            >
               Al enviar este formulario, aceptas que procesemos tu información
               de contacto para responder a tu consulta.
             </p>
@@ -231,20 +425,35 @@ export default function ContactoPage() {
       </section>
 
       {/* Enterprise CTA */}
-      <section className="border-t border-border bg-muted/30">
+      <section
+        className="border-t"
+        style={{
+          borderColor: "var(--color-border-subtle)",
+          backgroundColor: "var(--color-surface-2)",
+        }}
+      >
         <div className="container mx-auto max-w-4xl px-6 py-16 md:py-20">
           <div className="text-center space-y-6">
-            <h2 className="heading-lg text-foreground">
+            <h2
+              className="heading-lg"
+              style={{ color: "var(--color-text-primary)" }}
+            >
               ¿Buscas un plan Enterprise?
             </h2>
-            <p className="text-body text-muted-foreground max-w-xl mx-auto">
+            <p
+              className="max-w-xl mx-auto"
+              style={{
+                fontSize: "var(--text-base)",
+                color: "var(--color-text-secondary)",
+              }}
+            >
               Ofrecemos soluciones personalizadas para organizaciones grandes
               con necesidades específicas. Hablemos de cómo podemos ayudarte.
             </p>
             <Button
               variant="secondary"
+              size="lg"
               href="mailto:ventas@noah.estate"
-              className="px-8 py-6"
             >
               Contactar con ventas
             </Button>

@@ -182,20 +182,65 @@ export default function GenerarActaPage() {
   const microcopy = getProgressMessage();
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-4 pt-[100px] pb-12" style={{ backgroundColor: "#f0efea" }}>
-      <div className="w-full max-w-2xl bg-card border border-border rounded-2xl p-8 md:p-10 space-y-6">
+    <main
+      className="min-h-screen flex items-center justify-center"
+      style={{
+        backgroundColor: "var(--color-bg-base)",
+      }}
+    >
+      <div
+        className="w-full max-w-2xl card p-8 md:p-10 space-y-6"
+        style={{
+          padding: "var(--space-8)",
+          borderRadius: "var(--radius-2xl)",
+        }}
+      >
         <div className="text-center space-y-3">
-          <h2 className="max-w-[800px] heading-lg text-foreground">
+          <h2
+            className="heading-lg max-w-[800px] mx-auto"
+            style={{ color: "var(--color-text-primary)" }}
+          >
             Generar acta de reunión
           </h2>
-          <p className="text-body-sm text-muted-foreground">
+          <p
+            style={{
+              fontSize: "var(--text-sm)",
+              color: "var(--color-text-secondary)",
+            }}
+          >
             Sube un audio o pega la transcripción para generar tu acta automáticamente
           </p>
         </div>
 
-        <section className="rounded-xl bg-muted/30 border border-border p-6 space-y-5">
-          <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-            <span className="inline-flex items-center justify-center size-6 rounded-full bg-primary text-primary-foreground text-xs font-bold">
+        <section
+          className="rounded-xl p-6 space-y-5"
+          style={{
+            borderRadius: "var(--radius-xl)",
+            backgroundColor: "var(--color-surface-2)",
+            border: "1px solid var(--color-border-subtle)",
+            padding: "var(--space-6)",
+          }}
+        >
+          <div
+            className="flex items-center gap-2"
+            style={{
+              gap: "var(--space-2)",
+              fontSize: "var(--text-sm)",
+              fontWeight: "var(--weight-medium)",
+              color: "var(--color-text-primary)",
+            }}
+          >
+            <span
+              className="inline-flex items-center justify-center size-6 rounded-full text-xs font-bold"
+              style={{
+                width: "var(--space-6)",
+                height: "var(--space-6)",
+                borderRadius: "var(--radius-full)",
+                backgroundColor: "var(--color-btn-primary-bg)",
+                color: "var(--color-btn-primary-text)",
+                fontSize: "var(--text-xs)",
+              }}
+            >
               1
             </span>
             <span>Sube tu contenido</span>
@@ -223,11 +268,22 @@ export default function GenerarActaPage() {
               {file ? `📎 ${file.name}` : "📁 Subir archivo"}
             </Button>
 
-            <p className="text-xs text-muted-foreground text-center max-w-md">
+            <p
+              className="text-xs text-center max-w-md"
+              style={{
+                fontSize: "var(--text-xs)",
+                color: "var(--color-text-secondary)",
+              }}
+            >
               Audio (.mp3, .m4a, .wav, .webm) • Texto (.txt, .docx)
               <br />
               {isAudioFile && (
-                <span className="text-primary font-medium">
+                <span
+                  style={{
+                    color: "var(--color-accent-text)",
+                    fontWeight: "var(--weight-medium)",
+                  }}
+                >
                   ✨ Audio detectado - se transcribirá automáticamente
                 </span>
               )}
@@ -244,47 +300,75 @@ export default function GenerarActaPage() {
             }}
             onDragOver={(e) => e.preventDefault()}
             placeholder="Pega la transcripción aquí…&#10;&#10;Opcional: añade detalles extra (asistentes, fecha/hora, acuerdos, votaciones, tareas, incidencias…)."
-            className="w-full h-56 border border-input bg-card rounded-md p-3 text-body-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="input textarea w-full"
+            style={{ minHeight: "14rem", padding: "var(--space-3)" }}
           />
         </section>
 
         <div className="flex flex-col items-center gap-3">
           {isProcessing && (
-            <div className="flex flex-col items-center gap-2">
+            <div
+              className="flex flex-col items-center gap-2"
+              style={{ gap: "var(--space-2)" }}
+            >
               <span
-                className="inline-block size-6 animate-spin rounded-full border-3 border-primary border-t-transparent"
+                className="spinner spinner-sm"
                 aria-hidden
               />
               {isAudioFile && (
-                <div className="flex gap-1 text-xs text-muted-foreground">
+                <div
+                  className="flex gap-1 text-xs"
+                  style={{
+                    gap: "var(--space-1)",
+                    fontSize: "var(--text-xs)",
+                    color: "var(--color-text-secondary)",
+                  }}
+                >
                   <span
-                    className={
-                      status === "transcribing"
-                        ? "text-primary font-semibold"
-                        : status === "structuring" || status === "generating"
-                          ? "text-green-600"
-                          : ""
-                    }
+                    style={{
+                      color:
+                        status === "transcribing"
+                          ? "var(--color-accent-text)"
+                          : status === "structuring" || status === "generating"
+                            ? "var(--color-success)"
+                            : "inherit",
+                      fontWeight:
+                        status === "transcribing"
+                          ? "var(--weight-semibold)"
+                          : "inherit",
+                    }}
                   >
                     1. Transcribir
                   </span>
                   <span>→</span>
                   <span
-                    className={
-                      status === "structuring"
-                        ? "text-primary font-semibold"
-                        : status === "generating"
-                          ? "text-green-600"
-                          : ""
-                    }
+                    style={{
+                      color:
+                        status === "structuring"
+                          ? "var(--color-accent-text)"
+                          : status === "generating"
+                            ? "var(--color-success)"
+                            : "inherit",
+                      fontWeight:
+                        status === "structuring"
+                          ? "var(--weight-semibold)"
+                          : "inherit",
+                    }}
                   >
                     2. Estructurar
                   </span>
                   <span>→</span>
                   <span
-                    className={
-                      status === "generating" ? "text-primary font-semibold" : ""
-                    }
+                    style={{
+                      color:
+                        status === "generating"
+                          ? "var(--color-accent-text)"
+                          : "inherit",
+                      fontWeight:
+                        status === "generating"
+                          ? "var(--weight-semibold)"
+                          : "inherit",
+                    }}
                   >
                     3. PDF
                   </span>
@@ -302,11 +386,14 @@ export default function GenerarActaPage() {
           </Button>
           {microcopy && (
             <p
-              className={
-                status === "error"
-                  ? "text-body-sm text-red-600 text-center max-w-md"
-                  : "text-body-sm text-muted-foreground text-center"
-              }
+              className="text-center max-w-md"
+              style={{
+                fontSize: "var(--text-sm)",
+                color:
+                  status === "error"
+                    ? "var(--color-error-text)"
+                    : "var(--color-text-secondary)",
+              }}
             >
               {microcopy}
             </p>

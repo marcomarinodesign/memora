@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 export function FigmaHomepage() {
   return (
     <main
-      className="min-h-screen"
+      className="h-full min-h-[800px]"
       style={{ backgroundColor: "#f0efea" }}
     >
       {/* Hero Section */}
-      <section className="mx-auto flex max-w-[1024px] flex-col items-center justify-center px-6 py-12 text-center md:py-20">
+      <section className="mx-auto flex max-w-[1024px] flex-col items-center justify-center px-6 py-0 text-center md:py-0">
         {/* Illustration (responsive variants) */}
         <div className="mb-12 md:mb-16 w-full max-w-[760px]">
           <picture>

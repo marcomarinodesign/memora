@@ -19,31 +19,94 @@ export default function ConfiguracionPage() {
 
   if (!comunidad) {
     return (
-      <div className="p-6 max-w-2xl mx-auto">
-        <p className="text-gray-500">Comunidad no encontrada.</p>
+      <div
+        className="p-6 max-w-2xl mx-auto"
+        style={{ padding: "var(--space-6)" }}
+      >
+        <p style={{ color: "var(--color-text-secondary)" }}>
+          Comunidad no encontrada.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col gap-6 p-6 max-w-2xl mx-auto">
-      <h1 className="max-w-[800px] heading-xl text-foreground text-[64px] font-extrabold tracking-[-2px]">Configuración</h1>
+    <div
+      className="flex flex-col gap-6 p-6 max-w-2xl mx-auto"
+      style={{ padding: "var(--space-6)", gap: "var(--space-6)" }}
+    >
+      <h1
+        className="heading-xl max-w-[800px]"
+        style={{
+          color: "var(--color-text-primary)",
+          letterSpacing: "var(--tracking-tight)",
+        }}
+      >
+        Configuración
+      </h1>
 
-      <section className="border rounded-lg p-4 bg-white shadow-sm">
-        <h2 className="text-sm font-medium text-gray-500 mb-2">Comunidad</h2>
-        <p className="font-medium">{comunidad.nombre}</p>
-        <p className="text-sm text-gray-600">{comunidad.direccion}</p>
-        <p className="text-sm text-gray-600">NIF: {comunidad.nif}</p>
+      <section
+        className="card p-4"
+        style={{
+          padding: "var(--space-4)",
+          borderRadius: "var(--radius-lg)",
+          border: "1px solid var(--color-border-subtle)",
+          backgroundColor: "var(--color-surface-1)",
+          boxShadow: "var(--shadow-sm)",
+        }}
+      >
+        <h2
+          className="mb-2"
+          style={{
+            fontSize: "var(--text-sm)",
+            fontWeight: "var(--weight-medium)",
+            color: "var(--color-text-secondary)",
+            marginBottom: "var(--space-2)",
+          }}
+        >
+          Comunidad
+        </h2>
+        <p style={{ fontWeight: "var(--weight-medium)", color: "var(--color-text-primary)" }}>{comunidad.nombre}</p>
+        <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>{comunidad.direccion}</p>
+        <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>NIF: {comunidad.nif}</p>
       </section>
 
-      <section className="border rounded-lg p-4 bg-white shadow-sm">
-        <h2 className="text-sm font-medium text-gray-500 mb-3">Idioma</h2>
+      <section
+        className="card p-4"
+        style={{
+          padding: "var(--space-4)",
+          borderRadius: "var(--radius-lg)",
+          border: "1px solid var(--color-border-subtle)",
+          backgroundColor: "var(--color-surface-1)",
+          boxShadow: "var(--shadow-sm)",
+        }}
+      >
+        <h2
+          className="mb-3"
+          style={{
+            fontSize: "var(--text-sm)",
+            fontWeight: "var(--weight-medium)",
+            color: "var(--color-text-secondary)",
+            marginBottom: "var(--space-3)",
+          }}
+        >
+          Idioma
+        </h2>
         <LanguageToggle
           value={idioma}
           onChange={handleIdiomaChange}
         />
         {message && (
-          <p className="mt-3 text-sm text-green-600">{message}</p>
+          <p
+            className="mt-3 text-sm"
+            style={{
+              marginTop: "var(--space-3)",
+              fontSize: "var(--text-sm)",
+              color: "var(--color-success-text)",
+            }}
+          >
+            {message}
+          </p>
         )}
       </section>
     </div>

@@ -18,24 +18,44 @@ export function PricingPreviewSection({
 }: PricingPreviewSectionProps) {
   return (
     <section
-      className={`border-t border-border py-16 md:py-24 ${className}`}
+      className={`border-t py-16 md:py-24 ${className}`}
+      style={{
+        borderColor: "var(--color-border-subtle)",
+        paddingTop: "var(--space-16)",
+        paddingBottom: "var(--space-16)",
+      }}
       aria-labelledby="pricing-preview-heading"
     >
-      <div className="container mx-auto max-w-4xl px-6 text-center">
+      <div
+        className="container mx-auto max-w-4xl px-6 text-center"
+        style={{ paddingLeft: "var(--space-6)", paddingRight: "var(--space-6)" }}
+      >
         <h2
           id="pricing-preview-heading"
-          className="text-h2 font-bold text-foreground"
+          className="heading-lg"
+          style={{ color: "var(--color-text-primary)" }}
         >
           {title}
         </h2>
-        <p className="mt-3 text-body text-muted-foreground max-w-xl mx-auto">
+        <p
+          className="mt-3 max-w-xl mx-auto"
+          style={{
+            marginTop: "var(--space-3)",
+            fontSize: "var(--text-base)",
+            color: "var(--color-text-secondary)",
+          }}
+        >
           {subtitle}
         </p>
-        <div className="mt-8 flex justify-center">
+        <div
+          className="mt-8 flex justify-center"
+          style={{ marginTop: "var(--space-8)" }}
+        >
           <Button
             variant="secondary"
+            size="lg"
             href={ctaHref}
-            className="min-w-[180px] py-6 text-btn font-semibold"
+            className="min-w-[180px]"
           >
             {ctaLabel}
           </Button>

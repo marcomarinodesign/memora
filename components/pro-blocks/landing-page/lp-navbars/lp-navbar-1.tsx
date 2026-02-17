@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useId, useState } from "react";
 
 const MENU_ITEMS = [
   { label: "Generar acta", href: "/generar-acta" },
@@ -13,88 +13,135 @@ const MENU_ITEMS = [
   { label: "Contacto", href: "/contacto" },
 ] as const;
 
-interface NavMenuItemsProps {
-  className?: string;
-}
-
-const NavMenuItems = ({ className }: NavMenuItemsProps) => (
-  <div
-    className={`flex flex-col gap-4 md:flex-row md:items-center md:gap-8 ${className ?? ""}`}
-  >
-    {MENU_ITEMS.map(({ label, href }) => (
-      <Link
-        key={label}
-        href={href}
-        className="text-sm font-medium text-black transition-colors hover:text-black/70"
-        style={{ fontSize: "14px", fontWeight: 500, lineHeight: "20px" }}
-      >
-        {label}
-      </Link>
-    ))}
-  </div>
-);
-
 export function LpNavbar1() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  const [open, setOpen] = useState(false);
+  const panelId = useId();
 
   return (
-    <nav className="sticky top-0 z-50 isolate border-b border-gray-200 bg-white">
-      <div className="relative mx-auto flex max-w-[1280px] flex-col justify-between gap-4 px-6 py-4 md:flex-row md:items-center md:gap-8 md:px-20 md:py-4">
-        {/* Logo a la izquierda */}
-        <div className="flex shrink-0 items-center justify-between md:justify-start md:flex-none">
-          <Link
-            href="/"
-            aria-label="Ir a inicio"
-            className="block shrink-0 max-h-10 md:max-h-12 w-auto"
-          >
-            <Image
-              src="/images/logo.png"
-              alt="NOAH ESTATE"
-              width={140}
-              height={48}
-              className="h-8 w-auto md:h-10"
-              priority
-            />
-          </Link>
-          <Button
-            variant="ghost"
-            type="button"
-            className="flex items-center justify-center md:hidden"
-            onClick={toggleMenu}
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          >
-            {isMenuOpen ? <X /> : <Menu />}
-          </Button>
-        </div>
+    <header
+      className="lp-navbar isolate"
+      style={{
+        position: "sticky",
+        top: 0,
+        zIndex: "var(--z-sticky)",
+        borderBottom: "1px solid var(--color-border-subtle)",
+        backgroundColor: "var(--color-surface-1)",
+      }}
+    >
+      <div
+        className="lp-navbar-inner"
+        style={{
+          maxWidth: "1280px",
+          margin: "0 auto",
+          padding: "var(--space-4) var(--space-6)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "var(--space-4)",
+        }}
+      >
+        {/* Logo — izquierda */}
+        <Link
+          href="/"
+          aria-label="Ir a inicio"
+          className="shrink-0"
+          onClick={() => setOpen(false)}
+        >
+          <Image
+            src="/images/logo.png"
+            alt="NOAH ESTATE"
+            width={140}
+            height={48}
+            style={{ height: "auto", width: "auto", maxHeight: "2rem" }}
+            priority
+          />
+        </Link>
 
-        {/* Enlaces centrados, CTA a la derecha */}
-        <div className="hidden flex-1 items-center gap-8 md:flex">
-          <NavMenuItems className="mx-auto" />
-          <Button
-            href="/generar-acta"
-            className="shrink-0 rounded-lg px-5 py-2.5 text-sm font-medium transition-colors hover:opacity-90"
-            style={{ backgroundColor: "#000", color: "#fff" }}
-          >
+        {/* Links — centro (solo desktop) */}
+        <nav
+          className="lp-nav-desktop-links"
+          aria-label="Navegación principal"
+        >
+          {MENU_ITEMS.map(({ label, href }) => (
+            <Link
+              key={label}
+              href={href}
+              className="transition-opacity hover:opacity-80"
+              style={{
+                fontSize: "var(--text-sm)",
+                fontWeight: "var(--weight-medium)",
+                color: "var(--color-text-primary)",
+              }}
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Button Generar acta — derecha (solo desktop) */}
+        <div className="lp-nav-desktop-cta">
+          <Button href="/generar-acta" variant="primary">
             Generar acta
           </Button>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="flex w-full flex-col justify-end gap-5 pb-2.5 md:hidden">
-            <NavMenuItems />
-            <Button
-              href="/generar-acta"
-              className="w-full rounded-lg px-5 py-2.5 text-sm font-medium transition-colors hover:opacity-90"
-              style={{ backgroundColor: "#000", color: "#fff" }}
-            >
-              Generar acta
-            </Button>
-          </div>
-        )}
+        {/* Mobile: hamburger (solo móvil) */}
+        <Button
+          variant="ghost"
+          size="icon"
+          type="button"
+          className="lp-nav-mobile-menu-btn"
+          aria-label={open ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={open}
+          aria-controls={panelId}
+          onClick={() => setOpen((v) => !v)}
+        >
+          {open ? <X className="size-5" /> : <Menu className="size-5" />}
+        </Button>
       </div>
-    </nav>
+
+      {/* Mobile dropdown (solo móvil) */}
+      <div
+        id={panelId}
+        className={`lp-nav-mobile-dropdown ${open ? "" : "hidden"}`}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "var(--space-1)",
+            borderTop: "1px solid var(--color-border-subtle)",
+            padding: "var(--space-4) var(--space-6)",
+          }}
+        >
+          {MENU_ITEMS.map(({ label, href }) => (
+            <Link
+              key={label}
+              href={href}
+              onClick={() => setOpen(false)}
+              className="rounded-lg transition-opacity hover:opacity-80"
+              style={{
+                padding: "var(--space-3) var(--space-4)",
+                borderRadius: "var(--radius-lg)",
+                fontSize: "var(--text-base)",
+                fontWeight: "var(--weight-medium)",
+                color: "var(--color-text-primary)",
+              }}
+            >
+              {label}
+            </Link>
+          ))}
+          <Button
+            variant="primary"
+            href="/generar-acta"
+            block
+            style={{ marginTop: "var(--space-2)" }}
+            onClick={() => setOpen(false)}
+          >
+            Generar acta
+          </Button>
+        </div>
+      </div>
+    </header>
   );
 }

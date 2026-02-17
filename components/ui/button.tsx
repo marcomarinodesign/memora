@@ -4,7 +4,15 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-type ButtonVariant = "primary" | "secondary" | "ghost";
+type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "ghost"
+  | "accent"
+  | "outline"
+  | "danger";
+
+type ButtonSize = "default" | "sm" | "lg" | "xl" | "icon";
 
 interface ButtonProps
   extends Omit<
@@ -12,6 +20,8 @@ interface ButtonProps
     "className" | "children"
   > {
   variant?: ButtonVariant;
+  size?: ButtonSize;
+  block?: boolean;
   children: ReactNode;
   type?: "button" | "submit";
   href?: string;
@@ -19,14 +29,26 @@ interface ButtonProps
 }
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: "cta-primary",
-  secondary: "cta-secondary",
-  ghost:
-    "bg-transparent text-foreground hover:bg-muted rounded-full size-10 md:size-11",
+  primary: "btn btn-primary",
+  secondary: "btn btn-secondary",
+  ghost: "btn btn-ghost",
+  accent: "btn btn-accent",
+  outline: "btn btn-outline",
+  danger: "btn btn-danger",
+};
+
+const sizeClasses: Record<ButtonSize, string> = {
+  default: "",
+  sm: "btn-sm",
+  lg: "btn-lg",
+  xl: "btn-xl",
+  icon: "btn-icon",
 };
 
 export function Button({
   variant = "primary",
+  size = "default",
+  block = false,
   children,
   onClick,
   type = "button",
@@ -35,16 +57,21 @@ export function Button({
   disabled,
   ...rest
 }: ButtonProps) {
-  const baseClass =
-    "inline-flex items-center justify-center border-none transition-[background] duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
-  const classes = cn(baseClass, variantClasses[variant], className);
+  const classes = cn(
+    variantClasses[variant],
+    sizeClasses[size],
+    block && "btn-block",
+    className
+  );
 
   if (href !== undefined) {
     return (
       <Link
         href={href}
         className={classes}
-        onClick={onClick as unknown as React.MouseEventHandler<HTMLAnchorElement>}
+        onClick={
+          onClick as unknown as React.MouseEventHandler<HTMLAnchorElement>
+        }
       >
         {children}
       </Link>

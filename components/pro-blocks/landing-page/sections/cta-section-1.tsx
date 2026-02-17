@@ -17,25 +17,43 @@ export function CtaSection1({
 }: CtaSection1Props) {
   return (
     <section
-      className={`border-t border-border py-16 md:py-24 ${className}`}
+      className={`border-t py-16 md:py-24 ${className}`}
+      style={{
+        borderColor: "var(--color-border-subtle)",
+        paddingTop: "var(--space-16)",
+        paddingBottom: "var(--space-16)",
+      }}
       aria-labelledby="cta-heading"
     >
-      <div className="container mx-auto max-w-4xl px-6 text-center">
+      <div
+        className="container mx-auto max-w-4xl px-6 text-center"
+        style={{ paddingLeft: "var(--space-6)", paddingRight: "var(--space-6)" }}
+      >
         <h2
           id="cta-heading"
-          className="text-h2 font-bold text-foreground"
+          className="heading-lg"
+          style={{ color: "var(--color-text-primary)" }}
         >
           {title}
         </h2>
         {description && (
-          <p className="mt-3 text-body text-muted-foreground">
+          <p
+            className="mt-3"
+            style={{
+              marginTop: "var(--space-3)",
+              fontSize: "var(--text-base)",
+              color: "var(--color-text-secondary)",
+            }}
+          >
             {description}
           </p>
         )}
         <Button
           variant="primary"
+          size="lg"
           href={ctaHref}
-          className="mt-8 min-w-[220px] py-6 text-btn font-semibold"
+          className="mt-8 min-w-[220px]"
+          style={{ marginTop: "var(--space-8)" }}
         >
           {ctaLabel}
         </Button>

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 
-const pageStyle = { backgroundColor: "#f0efea" };
+const pageStyle = { backgroundColor: "var(--color-bg-base)" };
 
 const faqCategories = [
   {
@@ -136,19 +136,49 @@ export default function FaqPage() {
       <section className="container mx-auto max-w-4xl px-6 pt-[100px] pb-12 md:pb-16">
         <div className="text-center space-y-6">
           {/* Image Placeholder */}
-          <div className="w-full max-w-[760px] h-[180px] mx-auto bg-muted/50 border-2 border-dashed border-border rounded-lg flex items-center justify-center mb-8">
-            <span className="text-sm text-muted-foreground">
+          <div
+            className="w-full max-w-[760px] h-[180px] mx-auto border-2 border-dashed rounded-lg flex items-center justify-center mb-8"
+            style={{
+              backgroundColor: "var(--color-surface-2)",
+              borderColor: "var(--color-border-default)",
+              borderRadius: "var(--radius-lg)",
+            }}
+          >
+            <span
+              style={{
+                fontSize: "var(--text-sm)",
+                color: "var(--color-text-secondary)",
+              }}
+            >
               760 × 180 px
             </span>
           </div>
 
-          <h1 className="max-w-[800px] mx-auto heading-xl text-foreground text-[64px] font-extrabold tracking-[-2px]">Preguntas frecuentes</h1>
-          <p className="text-body text-muted-foreground max-w-2xl mx-auto">
+          <h1
+            className="max-w-[800px] mx-auto heading-xl"
+            style={{
+              color: "var(--color-text-primary)",
+              letterSpacing: "var(--tracking-tight)",
+            }}
+          >
+            Preguntas frecuentes
+          </h1>
+          <p
+            className="max-w-2xl mx-auto"
+            style={{
+              fontSize: "var(--text-base)",
+              color: "var(--color-text-secondary)",
+            }}
+          >
             Todo lo que necesitas saber sobre Noah. ¿No encuentras tu
             respuesta?{" "}
             <Link
               href="/contacto"
-              className="font-medium text-primary hover:underline underline-offset-4"
+              className="font-medium hover:underline underline-offset-4"
+              style={{
+                color: "var(--color-accent-text)",
+                fontWeight: "var(--weight-medium)",
+              }}
             >
               Contáctanos
             </Link>
@@ -162,7 +192,16 @@ export default function FaqPage() {
         <div className="space-y-12">
           {faqCategories.map((cat, catIndex) => (
             <div key={catIndex} className="space-y-4">
-              <h2 className="text-xl font-bold text-foreground border-b border-border pb-3">
+              <h2
+                className="text-xl font-bold border-b pb-3"
+                style={{
+                  fontSize: "var(--text-h4)",
+                  fontWeight: "var(--weight-bold)",
+                  color: "var(--color-text-primary)",
+                  borderColor: "var(--color-border-subtle)",
+                  paddingBottom: "var(--space-3)",
+                }}
+              >
                 {cat.category}
               </h2>
               <div className="space-y-3">
@@ -172,7 +211,12 @@ export default function FaqPage() {
                   return (
                     <div
                       key={key}
-                      className="border border-border rounded-xl bg-card overflow-hidden hover:border-border-hover transition-colors"
+                      className="card overflow-hidden transition-colors"
+                      style={{
+                        border: "1px solid var(--color-border-subtle)",
+                        borderRadius: "var(--radius-xl)",
+                        backgroundColor: "var(--color-surface-1)",
+                      }}
                     >
                       <button
                         type="button"
@@ -180,13 +224,20 @@ export default function FaqPage() {
                         className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
                         aria-expanded={isOpen}
                       >
-                        <span className="font-medium text-foreground pr-2">
+                        <span
+                          className="font-medium pr-2"
+                          style={{
+                            color: "var(--color-text-primary)",
+                            fontWeight: "var(--weight-medium)",
+                          }}
+                        >
                           {faq.question}
                         </span>
                         <ChevronDown
-                          className={`size-5 shrink-0 text-muted-foreground transition-transform duration-200 ${
+                          className={`size-5 shrink-0 transition-transform duration-200 ${
                             isOpen ? "rotate-180" : ""
                           }`}
+                          style={{ color: "var(--color-text-secondary)" }}
                         />
                       </button>
                       <div
@@ -196,7 +247,13 @@ export default function FaqPage() {
                       >
                         <div className="overflow-hidden">
                           <div className="px-6 pb-5">
-                            <p className="text-body-sm text-muted-foreground leading-relaxed">
+                            <p
+                              style={{
+                                fontSize: "var(--text-sm)",
+                                color: "var(--color-text-secondary)",
+                                lineHeight: "var(--leading-relaxed)",
+                              }}
+                            >
                               {faq.answer}
                             </p>
                           </div>
@@ -212,29 +269,36 @@ export default function FaqPage() {
       </section>
 
       {/* CTA section */}
-      <section className="border-t border-border bg-muted/30">
+      <section
+        className="border-t"
+        style={{
+          borderColor: "var(--color-border-subtle)",
+          backgroundColor: "var(--color-surface-2)",
+        }}
+      >
         <div className="container mx-auto max-w-4xl px-6 py-20 md:py-28">
           <div className="text-center space-y-6">
-            <h2 className="heading-lg text-foreground">
+            <h2
+              className="heading-lg"
+              style={{ color: "var(--color-text-primary)" }}
+            >
               ¿Listo para crear tu primera acta?
             </h2>
-            <p className="text-body text-muted-foreground max-w-xl mx-auto">
+            <p
+              className="max-w-xl mx-auto"
+              style={{
+                fontSize: "var(--text-base)",
+                color: "var(--color-text-secondary)",
+              }}
+            >
               Empieza gratis y descubre lo fácil que es generar actas
               profesionales con IA.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button
-                variant="primary"
-                href="/generar-acta"
-                className="px-8 py-6"
-              >
+              <Button variant="primary" size="lg" href="/generar-acta">
                 Generar acta gratis
               </Button>
-              <Button
-                variant="secondary"
-                href="/contacto"
-                className="px-8 py-6"
-              >
+              <Button variant="secondary" size="lg" href="/contacto">
                 Contactar soporte
               </Button>
             </div>

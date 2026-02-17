@@ -58,7 +58,10 @@ const BENEFITS = [
 
 export function LandingPage1() {
   return (
-    <main className="min-h-screen bg-background">
+    <main
+      className="min-h-screen"
+      style={{ backgroundColor: "var(--color-bg-base)" }}
+    >
       <HeroSection1
         title="Convierte tus reuniones en actas profesionales en segundos"
         description="Sube el audio de tu reunión o transcripción y genera automáticamente un acta clara, estructurada y lista para compartir con IA."
@@ -82,9 +85,28 @@ export function LandingPage1() {
 
       <TestimonialsSection1 />
 
-      <section className="border-t border-border bg-muted/50">
-        <div className="container mx-auto max-w-4xl px-6 py-14 md:py-20 text-center">
-          <p className="text-body text-muted-foreground">
+      <section
+        className="border-t"
+        style={{
+          borderColor: "var(--color-border-subtle)",
+          backgroundColor: "var(--color-surface-2)",
+        }}
+      >
+        <div
+          className="container mx-auto max-w-4xl px-6 py-14 md:py-20 text-center"
+          style={{
+            paddingLeft: "var(--space-6)",
+            paddingRight: "var(--space-6)",
+            paddingTop: "var(--space-16)",
+            paddingBottom: "var(--space-16)",
+          }}
+        >
+          <p
+            style={{
+              fontSize: "var(--text-base)",
+              color: "var(--color-text-secondary)",
+            }}
+          >
             Ya utilizado por equipos que quieren reuniones más eficientes
           </p>
         </div>

@@ -1,0 +1,233 @@
+/**
+ * Claude.ai Design System — Tokens
+ * Single source of truth for colors, typography, spacing, shadows, radii, transitions, z-index
+ * Use ONLY these variables — never hardcode values elsewhere
+ */
+
+:root {
+  /* Fonts */
+  --font-body: "Lato", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "Fira Code", monospace;
+
+  /* Raw palette — foundation only; use semantic tokens in components */
+  --raw-stone-50: #faf9f7;
+  --raw-stone-100: #f5f2ee;
+  --raw-stone-200: #ede9e3;
+  --raw-stone-300: #ddd8d0;
+  --raw-stone-400: #c4bdb3;
+  --raw-stone-500: #9e968c;
+  --raw-stone-600: #736c63;
+  --raw-stone-700: #545048;
+  --raw-stone-800: #36332e;
+  --raw-stone-900: #1e1c19;
+  --raw-stone-950: #111009;
+
+  --raw-amber-50: #fffbeb;
+  --raw-amber-100: #fef3c7;
+  --raw-amber-200: #fde68a;
+  --raw-amber-300: #fcd34d;
+  --raw-amber-400: #fbbf24;
+  --raw-amber-500: #f59e0b;
+  --raw-amber-600: #d97706;
+  --raw-amber-700: #b45309;
+  --raw-amber-800: #92400e;
+
+  --raw-red-50: #fff1f2;
+  --raw-red-100: #ffe4e6;
+  --raw-red-300: #fca5a5;
+  --raw-red-500: #ef4444;
+  --raw-red-600: #dc2626;
+  --raw-red-700: #b91c1c;
+
+  --raw-green-50: #f0fdf4;
+  --raw-green-100: #dcfce7;
+  --raw-green-300: #86efac;
+  --raw-green-500: #22c55e;
+  --raw-green-600: #16a34a;
+  --raw-green-700: #15803d;
+
+  --raw-blue-50: #eff6ff;
+  --raw-blue-100: #dbeafe;
+  --raw-blue-300: #93c5fd;
+  --raw-blue-500: #3b82f6;
+  --raw-blue-600: #2563eb;
+  --raw-blue-700: #1d4ed8;
+
+  /* Backgrounds */
+  --color-bg-base: var(--raw-stone-50);
+  --color-bg-elevated: #ffffff;
+  --color-bg-sunken: var(--raw-stone-100);
+  --color-bg-overlay: rgba(17, 16, 9, 0.45);
+
+  /* Surfaces */
+  --color-surface-1: #ffffff;
+  --color-surface-2: var(--raw-stone-100);
+  --color-surface-3: var(--raw-stone-200);
+
+  /* Borders */
+  --color-border-subtle: var(--raw-stone-200);
+  --color-border-default: var(--raw-stone-300);
+  --color-border-strong: var(--raw-stone-400);
+
+  /* Text */
+  --color-text-primary: var(--raw-stone-900);
+  --color-text-secondary: var(--raw-stone-600);
+  --color-text-tertiary: var(--raw-stone-500);
+  --color-text-disabled: var(--raw-stone-400);
+  --color-text-inverse: #ffffff;
+
+  /* Accent (amber) */
+  --color-accent: var(--raw-amber-600);
+  --color-accent-hover: var(--raw-amber-700);
+  --color-accent-active: var(--raw-amber-800);
+  --color-accent-subtle: var(--raw-amber-50);
+  --color-accent-muted: var(--raw-amber-100);
+  --color-accent-border: var(--raw-amber-300);
+  --color-accent-text: var(--raw-amber-700);
+
+  /* Semantic — success, error, info */
+  --color-success: var(--raw-green-600);
+  --color-success-subtle: var(--raw-green-50);
+  --color-success-muted: var(--raw-green-100);
+  --color-success-border: var(--raw-green-300);
+  --color-success-text: var(--raw-green-700);
+
+  --color-error: var(--raw-red-600);
+  --color-error-subtle: var(--raw-red-50);
+  --color-error-muted: var(--raw-red-100);
+  --color-error-border: var(--raw-red-300);
+  --color-error-text: var(--raw-red-700);
+
+  --color-info: var(--raw-blue-600);
+  --color-info-subtle: var(--raw-blue-50);
+  --color-info-muted: var(--raw-blue-100);
+  --color-info-border: var(--raw-blue-300);
+  --color-info-text: var(--raw-blue-700);
+
+  /* Buttons */
+  --color-btn-primary-bg: var(--raw-stone-900);
+  --color-btn-primary-bg-hover: var(--raw-stone-800);
+  --color-btn-primary-text: #ffffff;
+
+  /* Typography — fluid (clamp), responsive */
+  --text-display: clamp(2rem, 4vw + 0.5rem, 3.5rem);
+  --text-h1: clamp(1.75rem, 3vw + 0.25rem, 2.5rem);
+  --text-h2: clamp(1.375rem, 2vw + 0.25rem, 1.875rem);
+  --text-h3: clamp(1.125rem, 1.5vw + 0.1rem, 1.375rem);
+  --text-h4: clamp(1rem, 1vw + 0.1rem, 1.125rem);
+  --text-lg: clamp(1.0625rem, 0.5vw + 0.9rem, 1.125rem);
+  --text-base: clamp(0.9375rem, 0.3vw + 0.85rem, 1rem);
+  --text-sm: clamp(0.8125rem, 0.2vw + 0.75rem, 0.875rem);
+  --text-xs: 0.75rem;
+  --text-code: clamp(0.8125rem, 0.3vw + 0.75rem, 0.875rem);
+  --text-label: 0.6875rem;
+
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  --tracking-tighter: -0.04em;
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.02em;
+  --tracking-wider: 0.05em;
+
+  /* Spacing (rem scale) */
+  --space-1: 0.25rem;
+  --space-1_5: 0.375rem;
+  --space-2: 0.5rem;
+  --space-2_5: 0.625rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(17, 16, 9, 0.05);
+  --shadow-sm: 0 1px 3px rgba(17, 16, 9, 0.08), 0 1px 2px rgba(17, 16, 9, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(17, 16, 9, 0.08), 0 2px 4px -2px rgba(17, 16, 9, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(17, 16, 9, 0.08), 0 4px 6px -4px rgba(17, 16, 9, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(17, 16, 9, 0.1), 0 8px 10px -6px rgba(17, 16, 9, 0.05);
+  --shadow-2xl: 0 25px 50px -12px rgba(17, 16, 9, 0.2);
+  --shadow-focus: 0 0 0 3px rgba(217, 119, 6, 0.25);
+  --shadow-focus-error: 0 0 0 3px rgba(220, 38, 38, 0.2);
+
+  /* Transitions */
+  --duration-fast: 100ms;
+  --duration-normal: 150ms;
+  --duration-slow: 250ms;
+  --duration-slower: 350ms;
+  --ease-default: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Z-index */
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}
+
+[data-theme="dark"] {
+  --color-bg-base: var(--raw-stone-950);
+  --color-bg-elevated: var(--raw-stone-900);
+  --color-bg-sunken: #0c0b09;
+  --color-bg-overlay: rgba(0, 0, 0, 0.65);
+  --color-surface-1: var(--raw-stone-900);
+  --color-surface-2: var(--raw-stone-800);
+  --color-surface-3: var(--raw-stone-700);
+  --color-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-border-default: rgba(255, 255, 255, 0.1);
+  --color-border-strong: rgba(255, 255, 255, 0.18);
+  --color-text-primary: var(--raw-stone-50);
+  --color-text-secondary: var(--raw-stone-400);
+  --color-text-tertiary: var(--raw-stone-500);
+  --color-text-disabled: var(--raw-stone-700);
+  --color-accent: var(--raw-amber-500);
+  --color-accent-hover: var(--raw-amber-400);
+  --color-accent-subtle: rgba(245, 158, 11, 0.08);
+  --color-accent-muted: rgba(245, 158, 11, 0.15);
+  --color-accent-border: rgba(245, 158, 11, 0.3);
+  --color-accent-text: var(--raw-amber-400);
+  --color-success-subtle: rgba(34, 197, 94, 0.08);
+  --color-success-muted: rgba(34, 197, 94, 0.15);
+  --color-success-border: rgba(34, 197, 94, 0.3);
+  --color-success-text: var(--raw-green-300);
+  --color-error: var(--raw-red-500);
+  --color-error-subtle: rgba(239, 68, 68, 0.08);
+  --color-error-muted: rgba(239, 68, 68, 0.15);
+  --color-error-border: rgba(239, 68, 68, 0.3);
+  --color-error-text: var(--raw-red-300);
+  --color-info: var(--raw-blue-500);
+  --color-info-subtle: rgba(59, 130, 246, 0.08);
+  --color-info-muted: rgba(59, 130, 246, 0.15);
+  --color-info-border: rgba(59, 130, 246, 0.3);
+  --color-info-text: var(--raw-blue-300);
+  --color-btn-primary-bg: var(--raw-stone-100);
+  --color-btn-primary-bg-hover: #ffffff;
+  --color-btn-primary-text: var(--raw-stone-900);
+  --shadow-focus: 0 0 0 3px rgba(245, 158, 11, 0.3);
+}

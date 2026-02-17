@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Source_Serif_4 } from "next/font/google";
+import { Lato } from "next/font/google";
 import "./globals.css";
 import { LpNavbar1 } from "@/components/pro-blocks/landing-page/lp-navbars/lp-navbar-1";
 import { Footer } from "@/components/footer";
 
-const inter = Inter({
+const lato = Lato({
   subsets: ["latin"],
+  weight: ["300", "400", "700"],
   display: "swap",
-  variable: "--font-inter",
-});
-
-const sourceSerif = Source_Serif_4({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-source-serif",
+  variable: "--font-lato",
 });
 
 export const metadata: Metadata = {
@@ -27,8 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} ${sourceSerif.variable} font-sans antialiased`}>
+    <html lang="es" data-theme="light" className={lato.variable}>
+      <body className="font-sans antialiased">
         <LpNavbar1 />
         {children}
         <Footer />
