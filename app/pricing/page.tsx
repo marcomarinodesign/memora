@@ -6,11 +6,11 @@ import { Lock } from "lucide-react";
 export default function PricingPage() {
   return (
     <main
-      className="min-h-screen flex flex-col items-center px-4 pt-[100px] pb-12"
+      className="min-h-screen flex flex-col items-center"
       style={{
         backgroundColor: "var(--color-bg-base)",
         padding: "var(--space-4)",
-        paddingTop: "100px",
+        paddingTop: "calc(var(--space-16) + var(--space-10))", /* TODO: design-system - review spacing (navbar clearance ~100px) */
         paddingBottom: "var(--space-12)",
       }}
     >
@@ -49,7 +49,7 @@ export default function PricingPage() {
           puedes probar Noah de forma gratuita.
         </p>
         <div
-          className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
+          className="flex flex-col sm:flex-row justify-center"
           style={{ gap: "var(--space-4)", paddingTop: "var(--space-4)" }}
         >
           <Button variant="primary" size="lg" href="/generar-acta">

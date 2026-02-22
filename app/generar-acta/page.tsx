@@ -189,7 +189,7 @@ export default function GenerarActaPage() {
       }}
     >
       <div
-        className="w-full max-w-2xl card p-8 md:p-10 space-y-6"
+        className="w-full max-w-2xl card space-y-6"
         style={{
           padding: "var(--space-8)",
           borderRadius: "var(--radius-2xl)",
@@ -213,7 +213,7 @@ export default function GenerarActaPage() {
         </div>
 
         <section
-          className="rounded-xl p-6 space-y-5"
+          className="space-y-5"
           style={{
             borderRadius: "var(--radius-xl)",
             backgroundColor: "var(--bg-body)",
@@ -276,7 +276,7 @@ export default function GenerarActaPage() {
             onDragOver={(e) => e.preventDefault()}
             placeholder="Pega la transcripción aquí…&#10;&#10;Opcional: añade detalles extra (asistentes, fecha/hora, acuerdos, votaciones, tareas, incidencias…)."
             className="input textarea w-full"
-            style={{ minHeight: "120px", padding: "var(--space-3)" }}
+            style={{ minHeight: "calc(var(--space-16) + var(--space-12))", /* TODO: design-system - review spacing (112px ≈ 120px, closest token combo) */ padding: "var(--space-3)" }}
           />
         </section>
 

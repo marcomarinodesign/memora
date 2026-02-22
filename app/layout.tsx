@@ -1,15 +1,7 @@
 import type { Metadata } from "next";
-import { Lato } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import "./globals.css";
-import { LpNavbar1 } from "@/components/pro-blocks/landing-page/lp-navbars/lp-navbar-1";
-import { Footer } from "@/components/footer";
-
-const lato = Lato({
-  subsets: ["latin"],
-  weight: ["300", "400", "700"],
-  display: "swap",
-  variable: "--font-lato",
-});
+import { SiteShell } from "./SiteShell";
 
 export const metadata: Metadata = {
   title: "noah.estate - De reunión a acta profesional en minutos",
@@ -22,11 +14,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" data-theme="light" className={lato.variable}>
+    <html lang="es" data-theme="light" className={GeistSans.variable}>
       <body className="font-sans antialiased">
-        <LpNavbar1 />
-        {children}
-        <Footer />
+        <SiteShell>{children}</SiteShell>
       </body>
     </html>
   );

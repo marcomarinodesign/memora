@@ -6,7 +6,8 @@ export function HeroOnlyLanding() {
   return (
     <main className="min-h-screen flex flex-col">
       {/* Full Height Hero Section */}
-      <section className="flex-1 flex items-center justify-center px-6 pt-[100px] pb-20">
+      {/* TODO: design-system - review spacing (104px ≈ 100px navbar clearance, no single token) */}
+      <section className="flex-1 flex items-center justify-center px-6 pb-20" style={{ paddingTop: "calc(var(--space-16) + var(--space-10))" }}>
         <div className="w-full max-w-5xl mx-auto">
           <div className="flex flex-col items-center text-center space-y-8">
             {/* Image Placeholder */}

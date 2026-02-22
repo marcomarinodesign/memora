@@ -43,7 +43,7 @@ export function Footer() {
             />
           </Link>
           <p
-            className="mt-[18px] max-w-xs"
+            className="max-w-xs"
             style={{
               ...linkStyles,
               marginTop: "var(--space-5)",
@@ -94,6 +94,11 @@ export function Footer() {
               >
                 GitHub
               </a>
+            </li>
+            <li>
+              <Link href="/design-system" className="hover:opacity-80" style={linkStyles}>
+                Design System
+              </Link>
             </li>
           </ul>
         </div>

@@ -7,7 +7,8 @@ export function CleanLanding() {
   return (
     <main className="min-h-screen bg-background">
       {/* Hero Section - Notion-inspired minimal */}
-      <section className="container mx-auto max-w-5xl px-0 pt-[100px] pb-[100px]">
+      {/* TODO: design-system - review spacing (104px ≈ 100px navbar clearance, no single token) */}
+      <section className="container mx-auto max-w-5xl px-0" style={{ paddingTop: "calc(var(--space-16) + var(--space-10))", paddingBottom: "calc(var(--space-16) + var(--space-10))" }}>
         <div className="flex flex-col items-center text-center space-y-8">
           {/* Hero image: 768×180, responsive placeholder (sustituir por <img src="..." alt="..." />) */}
           <div

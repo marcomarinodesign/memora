@@ -5,51 +5,52 @@
 
 @custom-variant dark (&:is(.dark *, [data-theme="dark"] *));
 
-/* Map Tailwind/shadcn theme to design system tokens */
+/* Map Tailwind/shadcn theme to design system tokens — orange default */
 @theme inline {
   --color-background: var(--color-bg-base);
   --color-foreground: var(--color-text-primary);
-  --font-sans: var(--font-body);
+  --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-mono);
   --color-border: var(--color-border-default);
   --color-ring: var(--color-accent);
   --color-destructive: var(--color-error);
   --color-muted: var(--color-surface-2);
   --color-muted-foreground: var(--color-text-secondary);
-  --color-primary: var(--color-btn-primary-bg);
-  --color-primary-foreground: var(--color-btn-primary-text);
-  --color-secondary: var(--color-surface-2);
-  --color-secondary-foreground: var(--color-text-primary);
-  --color-accent: var(--color-accent);
-  --color-accent-foreground: var(--color-accent-text);
+  --color-primary: var(--color-accent);
+  --color-primary-foreground: var(--color-text-inverse);
+  --color-secondary: var(--color-secondary);
+  --color-secondary-foreground: var(--color-secondary-foreground);
+  --color-accent: var(--color-surface-2);
+  --color-accent-foreground: var(--color-text-primary);
   --color-card: var(--color-surface-1);
   --color-card-foreground: var(--color-text-primary);
   --color-popover: var(--color-surface-1);
   --color-popover-foreground: var(--color-text-primary);
-  --color-input: var(--color-border-default);
+  --color-input: var(--color-input);
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
   --radius-lg: var(--radius-lg);
   --radius-xl: var(--radius-xl);
   --radius-2xl: var(--radius-2xl);
+  --radius-base: var(--radius-base);
   --color-chart-1: var(--color-accent);
   --color-chart-2: var(--color-success);
   --color-chart-3: var(--color-info);
   --color-chart-4: var(--raw-amber-400);
   --color-chart-5: var(--color-text-tertiary);
-  --color-sidebar: var(--color-surface-1);
+  --color-sidebar: var(--color-sidebar-bg);
   --color-sidebar-foreground: var(--color-text-primary);
-  --color-sidebar-primary: var(--color-btn-primary-bg);
-  --color-sidebar-primary-foreground: var(--color-btn-primary-text);
-  --color-sidebar-accent: var(--color-accent-subtle);
-  --color-sidebar-accent-foreground: var(--color-accent-text);
+  --color-sidebar-primary: var(--color-sidebar-primary);
+  --color-sidebar-primary-foreground: var(--color-sidebar-primary-fg);
+  --color-sidebar-accent: var(--color-sidebar-accent);
+  --color-sidebar-accent-foreground: var(--color-sidebar-accent-fg);
   --color-sidebar-border: var(--color-border-subtle);
-  --color-sidebar-ring: var(--color-accent);
+  --color-sidebar-ring: var(--color-sidebar-ring);
 }
 
 /* Legacy compatibility — map old var names to design system */
 :root {
-  --font-body: var(--font-lato, "Lato"), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-geist-sans, "Geist"), ui-sans-serif, system-ui, sans-serif;
   --background: var(--color-bg-base);
   --foreground: var(--color-text-primary);
   --font-inter: var(--font-body);
@@ -89,7 +90,7 @@
   --button-border-radius: var(--radius-full);
   --border-width-1: 1px;
   --border-width-2: 2px;
-  --radius: var(--radius-lg);
+  --radius: var(--radius-base);
 }
 
 @layer base {
