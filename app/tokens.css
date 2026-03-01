@@ -5,8 +5,10 @@
  */
 
 :root {
-  /* Fonts */
-  --font-body: "Lato", ui-sans-serif, system-ui, sans-serif;
+  /* Fonts — Figma: Public Sans (body/UI), Georgia (heading 2 / subtitle) */
+  --font-body: var(--font-public-sans, "Public Sans"), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-public-sans, "Public Sans"), ui-sans-serif, system-ui, sans-serif;
+  --font-heading-2: Georgia, "Times New Roman", serif;
   --font-mono: ui-monospace, "Fira Code", monospace;
 
   /* Raw palette — foundation only; use semantic tokens in components */
@@ -53,16 +55,50 @@
   --raw-blue-600: #2563eb;
   --raw-blue-700: #1d4ed8;
 
+  /* Figma / minutbook palette */
+  --color-primary-dark: #434f40;
+  --color-primary-dark-hover: #2a3932;
+  --color-bg-cream: #fdfbf7;
+  --color-bg-cream-alt: #ecebe4;
+  --color-accent-tan: #e9dbc7;
+  --color-accent-orange: #eab366;
+  --color-accent-orange-hover: #e5a83d;
+  /* Figma semantic */
+  --color-banner-bg: #eab366;
+  --color-banner-text: #50463c;
+  --color-nav-text: #434f40;
+  --color-nav-border: #c3d5c5;
+  --color-hero-label: #96897b;
+  --color-hero-heading: #302721;
+  --color-hero-subtitle: #61564c;
+  --color-hero-caption: #96897b;
+  --color-hero-caption-dot: #c6bcae;
+  /* CTA bar — Figma 0:305 (inside section 0:200) */
+  --color-cta-bar-bg: #f3c17c;
+  --color-cta-bar-text: #252a23;
+  /* Section 0:200 dark block */
+  --color-section-dark-bg: #252a23;
+  --color-section-dark-text: #eee9e2;
+  /* Section 0:311 Partners / Free Resources */
+  --color-partners-text: #231a16;
+  --color-partners-card-bg: rgba(155, 93, 5, 0.08);
+  /* Pricing 3:12 */
+  --color-pricing-green: #559152;
+  --color-pricing-green-dark: #4a7d45;
+  --color-pricing-card-border: rgba(96, 60, 10, 0.22);
+  --color-pricing-muted: #96897b;
+  --color-pricing-secondary-btn-bg: #eee9e2;
+
   /* Backgrounds */
-  --color-bg-base: var(--raw-stone-50);
+  --color-bg-base: var(--color-bg-cream);
   --color-bg-elevated: #ffffff;
-  --color-bg-sunken: var(--raw-stone-100);
-  --color-bg-overlay: rgba(17, 16, 9, 0.45);
+  --color-bg-sunken: var(--color-bg-cream-alt);
+  --color-bg-overlay: rgba(52, 70, 61, 0.45);
 
   /* Surfaces */
-  --color-surface-1: #ffffff;
-  --color-surface-2: var(--raw-stone-100);
-  --color-surface-3: var(--raw-stone-200);
+  --color-surface-1: var(--color-bg-cream);
+  --color-surface-2: var(--color-bg-cream-alt);
+  --color-surface-3: var(--color-accent-tan);
 
   /* Borders */
   --color-border-subtle: var(--raw-stone-200);
@@ -76,14 +112,14 @@
   --color-text-disabled: var(--raw-stone-400);
   --color-text-inverse: #ffffff;
 
-  /* Accent (amber) */
-  --color-accent: var(--raw-amber-600);
-  --color-accent-hover: var(--raw-amber-700);
-  --color-accent-active: var(--raw-amber-800);
-  --color-accent-subtle: var(--raw-amber-50);
-  --color-accent-muted: var(--raw-amber-100);
-  --color-accent-border: var(--raw-amber-300);
-  --color-accent-text: var(--raw-amber-700);
+  /* Accent (Figma orange / tan) */
+  --color-accent: var(--color-accent-orange);
+  --color-accent-hover: var(--color-accent-orange-hover);
+  --color-accent-active: #d99b3a;
+  --color-accent-subtle: var(--color-accent-tan);
+  --color-accent-muted: #f5e6d3;
+  --color-accent-border: var(--color-accent-orange);
+  --color-accent-text: var(--raw-stone-900);
 
   /* Semantic — success, error, info */
   --color-success: var(--raw-green-600);
@@ -105,11 +141,24 @@
   --color-info-text: var(--raw-blue-700);
 
   /* Buttons */
-  --color-btn-primary-bg: var(--raw-stone-900);
-  --color-btn-primary-bg-hover: var(--raw-stone-800);
+  --color-btn-primary-bg: var(--color-primary-dark);
+  --color-btn-primary-bg-hover: var(--color-primary-dark-hover);
   --color-btn-primary-text: #ffffff;
 
-  /* Typography — fluid (clamp), responsive */
+  /* Typography — Figma + fluid responsive */
+  --text-banner: 12.9px;
+  --leading-banner: 18.75px;
+  --text-nav: 15px;
+  --leading-nav: 22.5px;
+  --text-hero-label: 15px;
+  --text-hero-display: clamp(2rem, 5vw + 1rem, 42px);
+  --leading-hero-display: 1.2;
+  --tracking-hero-display: -1.5px;
+  --text-hero-subtitle: 18.8px;
+  --leading-hero-subtitle: 30px;
+  --tracking-hero-subtitle: 0.15px;
+  --text-hero-caption: 11.3px;
+  --tracking-hero-caption: 1.35px;
   --text-display: clamp(2rem, 4vw + 0.5rem, 3.5rem);
   --text-h1: clamp(1.75rem, 3vw + 0.25rem, 2.5rem);
   --text-h2: clamp(1.375rem, 2vw + 0.25rem, 1.875rem);
@@ -169,7 +218,7 @@
   --shadow-lg: 0 10px 15px -3px rgba(17, 16, 9, 0.08), 0 4px 6px -4px rgba(17, 16, 9, 0.05);
   --shadow-xl: 0 20px 25px -5px rgba(17, 16, 9, 0.1), 0 8px 10px -6px rgba(17, 16, 9, 0.05);
   --shadow-2xl: 0 25px 50px -12px rgba(17, 16, 9, 0.2);
-  --shadow-focus: 0 0 0 3px rgba(217, 119, 6, 0.25);
+  --shadow-focus: 0 0 0 3px rgba(52, 70, 61, 0.25);
   --shadow-focus-error: 0 0 0 3px rgba(220, 38, 38, 0.2);
 
   /* Transitions */

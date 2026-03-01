@@ -183,16 +183,18 @@ export default function GenerarActaPage() {
 
   return (
     <main
-      className="min-h-screen flex items-center justify-center"
+      className="flex min-h-screen items-center justify-center px-4 py-10"
       style={{
         backgroundColor: "var(--color-bg-base)",
       }}
     >
       <div
-        className="w-full max-w-2xl card p-8 md:p-10 space-y-6"
+        className="w-full max-w-2xl space-y-6 p-8 md:p-10"
         style={{
           padding: "var(--space-8)",
           borderRadius: "var(--radius-2xl)",
+          backgroundColor: "var(--color-surface-1)",
+          boxShadow: "var(--shadow-md)",
         }}
       >
         <div className="text-center space-y-3">
@@ -213,10 +215,10 @@ export default function GenerarActaPage() {
         </div>
 
         <section
-          className="rounded-xl p-6 space-y-5"
+          className="space-y-5 rounded-xl p-6"
           style={{
             borderRadius: "var(--radius-xl)",
-            backgroundColor: "var(--bg-body)",
+            backgroundColor: "var(--color-bg-cream-alt)",
             border: "none",
             padding: "var(--space-6)",
           }}

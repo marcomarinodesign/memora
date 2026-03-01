@@ -7,11 +7,17 @@ import Link from "next/link";
 import { useId, useState } from "react";
 
 const MENU_ITEMS = [
-  { label: "Generar acta", href: "/generar-acta" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "FAQ", href: "/faq" },
-  { label: "Contacto", href: "/contacto" },
+  { label: "Cómo funciona", href: "/#producto" },
+  { label: "Pricing", href: "/#precios" },
+  { label: "Contacto", href: "/#contacto" },
 ] as const;
+
+const navLinkStyle = {
+  fontSize: "var(--text-nav)",
+  lineHeight: "var(--leading-nav)",
+  fontWeight: "var(--weight-medium)" as const,
+  color: "var(--color-nav-text)",
+};
 
 export function LpNavbar1() {
   const [open, setOpen] = useState(false);
@@ -24,23 +30,23 @@ export function LpNavbar1() {
         position: "sticky",
         top: 0,
         zIndex: "var(--z-sticky)",
-        borderBottom: "1px solid var(--color-border-subtle)",
-        backgroundColor: "var(--color-surface-1)",
+        backgroundColor: "var(--color-bg-cream)",
       }}
     >
       <div
         className="lp-navbar-inner"
         style={{
-          maxWidth: "1280px",
+          maxWidth: "1230px",
           margin: "0 auto",
-          padding: "var(--space-4) var(--space-6)",
+          paddingLeft: "var(--space-6)",
+          paddingRight: "var(--space-6)",
+          minHeight: "86px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           gap: "var(--space-4)",
         }}
       >
-        {/* Logo — izquierda */}
         <Link
           href="/"
           aria-label="Ir a inicio"
@@ -49,48 +55,50 @@ export function LpNavbar1() {
         >
           <Image
             src="/images/logo.png"
-            alt="NOAH ESTATE"
+            alt="minutbook"
             width={140}
-            height={48}
-            style={{ height: "auto", width: "auto", maxHeight: "2rem" }}
+            height={30}
+            style={{ height: "30px", width: "auto" }}
             priority
           />
         </Link>
 
-        {/* Links — centro (solo desktop) */}
         <nav
-          className="lp-nav-desktop-links"
+          className="lp-nav-desktop-links items-center gap-0"
           aria-label="Navegación principal"
+          style={{ gap: "var(--space-2)" }}
         >
           {MENU_ITEMS.map(({ label, href }) => (
             <Link
               key={label}
               href={href}
-              className="transition-opacity hover:opacity-80"
-              style={{
-                fontSize: "var(--text-sm)",
-                fontWeight: "var(--weight-medium)",
-                color: "var(--color-text-primary)",
-              }}
+              className="rounded px-4 py-2 transition-opacity hover:opacity-80"
+              style={navLinkStyle}
             >
               {label}
             </Link>
           ))}
         </nav>
 
-        {/* Button Generar acta — derecha (solo desktop) */}
         <div className="lp-nav-desktop-cta">
-          <Button href="/generar-acta" variant="primary">
+          <Link
+            href="/generar-acta"
+            className="inline-flex h-[38px] items-center justify-center rounded px-4 text-[15px] font-medium transition-opacity hover:opacity-90"
+            style={{
+              ...navLinkStyle,
+              border: "1px solid var(--color-nav-border)",
+              backgroundColor: "transparent",
+            }}
+          >
             Generar acta
-          </Button>
+          </Link>
         </div>
 
-        {/* Mobile: hamburger (solo móvil) */}
         <Button
           variant="ghost"
           size="icon"
           type="button"
-          className="lp-nav-mobile-menu-btn"
+          className="lp-nav-mobile-menu-btn md:hidden"
           aria-label={open ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={open}
           aria-controls={panelId}
@@ -100,46 +108,37 @@ export function LpNavbar1() {
         </Button>
       </div>
 
-      {/* Mobile dropdown (solo móvil) */}
       <div
         id={panelId}
-        className={`lp-nav-mobile-dropdown ${open ? "" : "hidden"}`}
+        className={`lp-nav-mobile-dropdown md:hidden ${open ? "" : "hidden"}`}
+        style={{
+          borderTop: "1px solid var(--color-border-subtle)",
+          padding: "var(--space-4) var(--space-6)",
+        }}
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "var(--space-1)",
-            borderTop: "1px solid var(--color-border-subtle)",
-            padding: "var(--space-4) var(--space-6)",
-          }}
-        >
+        <div className="flex flex-col gap-1">
           {MENU_ITEMS.map(({ label, href }) => (
             <Link
               key={label}
               href={href}
               onClick={() => setOpen(false)}
-              className="rounded-lg transition-opacity hover:opacity-80"
-              style={{
-                padding: "var(--space-3) var(--space-4)",
-                borderRadius: "var(--radius-lg)",
-                fontSize: "var(--text-base)",
-                fontWeight: "var(--weight-medium)",
-                color: "var(--color-text-primary)",
-              }}
+              className="rounded-lg px-4 py-3 transition-opacity hover:opacity-80"
+              style={{ ...navLinkStyle, fontSize: "var(--text-base)" }}
             >
               {label}
             </Link>
           ))}
-          <Button
-            variant="primary"
+          <Link
             href="/generar-acta"
-            block
-            style={{ marginTop: "var(--space-2)" }}
             onClick={() => setOpen(false)}
+            className="mt-2 inline-flex h-[38px] items-center justify-center rounded border px-4"
+            style={{
+              borderColor: "var(--color-nav-border)",
+              ...navLinkStyle,
+            }}
           >
             Generar acta
-          </Button>
+          </Link>
         </div>
       </div>
     </header>

@@ -1,22 +1,53 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { Github, Twitter, Linkedin } from "lucide-react";
+import { Github, Twitter, Linkedin, Instagram } from "lucide-react";
 
-const linkStyles = {
-  fontSize: "var(--text-sm)",
-  fontWeight: "var(--weight-regular)",
-  lineHeight: "var(--leading-snug)",
-  color: "var(--color-text-primary)",
-  transition: "opacity 0.15s ease",
+const footerText = {
+  heading: "15px",
+  headingWeight: 700,
+  link: "12.9px",
+  linkHeight: "18.75px",
+  legal: "11.1px",
+  legalHeight: "16.88px",
 };
 
-const headingStyles = {
-  fontSize: "var(--text-sm)",
-  fontWeight: "var(--weight-semibold)",
-  lineHeight: "var(--leading-snug)",
-  color: "var(--color-text-primary)",
-  marginBottom: "var(--space-3)",
-};
+type FooterLink = { label: string; href: string; external?: boolean };
+
+const FOOTER_COLUMNS: { heading: string; links: FooterLink[] }[] = [
+  {
+    heading: "Producto",
+    links: [
+      { label: "Generar acta", href: "/generar-acta" },
+      { label: "Cómo funciona", href: "/#producto" },
+      { label: "Precios", href: "/#precios" },
+      { label: "FAQ", href: "/#faq" },
+    ],
+  },
+  {
+    heading: "Empezar",
+    links: [
+      { label: "Precios", href: "/#precios" },
+      { label: "Probar gratis", href: "/generar-acta" },
+      { label: "Contacto", href: "/#contacto" },
+    ],
+  },
+  {
+    heading: "Legal",
+    links: [
+      { label: "Términos de uso", href: "/terminos" },
+      { label: "Privacidad", href: "/privacidad" },
+    ],
+  },
+  {
+    heading: "Contacto",
+    links: [
+      { label: "Formulario", href: "/#contacto" },
+      { label: "GitHub", href: "https://github.com/marcomarinodesign/noah", external: true },
+    ],
+  },
+];
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -24,144 +55,201 @@ export function Footer() {
   return (
     <footer
       style={{
-        backgroundColor: "var(--color-surface-1)",
+        backgroundColor: "var(--color-section-dark-bg)",
+        color: "var(--color-section-dark-text)",
       }}
     >
       <div
-        className="container mx-auto grid grid-cols-2 gap-8 py-16 md:grid-cols-4 md:gap-12 md:px-20 md:py-16"
-        style={{ maxWidth: "1280px", paddingLeft: "var(--space-6)", paddingRight: "var(--space-6)" }}
-      >
-        {/* Brand */}
-        <div className="col-span-2 md:col-span-1">
-          <Link href="/" className="inline-block w-20 md:w-24">
-            <Image
-              src="/images/logo.png"
-              alt="NOAH ESTATE"
-              width={96}
-              height={33}
-              className="h-auto w-full"
-            />
-          </Link>
-          <p
-            className="mt-[18px] max-w-xs"
-            style={{
-              ...linkStyles,
-              marginTop: "var(--space-5)",
-            }}
-          >
-            Convierte reuniones en actas profesionales con IA.
-          </p>
-        </div>
-
-        {/* Product */}
-        <div>
-          <h3 style={headingStyles}>Producto</h3>
-          <ul className="stack gap-3">
-            <li>
-              <Link href="/generar-acta" className="hover:opacity-80" style={linkStyles}>
-                Generar acta
-              </Link>
-            </li>
-            <li>
-              <Link href="/acta" className="hover:opacity-80" style={linkStyles}>
-                Ver ejemplo
-              </Link>
-            </li>
-            <li>
-              <Link href="/faq" className="hover:opacity-80" style={linkStyles}>
-                FAQ
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        {/* Company */}
-        <div>
-          <h3 style={headingStyles}>Empresa</h3>
-          <ul className="stack gap-3">
-            <li>
-              <Link href="/contacto" className="hover:opacity-80" style={linkStyles}>
-                Contacto
-              </Link>
-            </li>
-            <li>
-              <a
-                href="https://github.com/marcomarinodesign/noah"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:opacity-80"
-                style={linkStyles}
-              >
-                GitHub
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Legal */}
-        <div>
-          <h3 style={headingStyles}>Legal</h3>
-          <ul className="stack gap-3">
-            <li>
-              <Link href="/privacidad" className="hover:opacity-80" style={linkStyles}>
-                Privacidad
-              </Link>
-            </li>
-            <li>
-              <Link href="/terminos" className="hover:opacity-80" style={linkStyles}>
-                Términos
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      {/* Bottom Bar */}
-      <div
-        className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row"
+        className="mx-auto flex max-w-[1230px] flex-col gap-12 px-6 py-12 md:gap-[90px] md:py-[90px]"
         style={{
-          marginTop: "var(--space-12)",
-          paddingTop: "var(--space-8)",
-          borderColor: "var(--color-border-subtle)",
+          paddingLeft: "var(--space-6)",
+          paddingRight: "var(--space-6)",
         }}
       >
-        <p style={linkStyles}>
-          © {currentYear} Noah. Todos los derechos reservados.
-        </p>
-        <div
-          className="flex items-center gap-6"
-          style={{ gap: "var(--space-6)" }}
-        >
-          <a
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-opacity hover:opacity-80"
-            style={{ color: "var(--color-text-primary)" }}
-            aria-label="Twitter"
-          >
-            <Twitter className="size-5" />
-          </a>
-          <a
-            href="https://github.com/marcomarinodesign/noah"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-opacity hover:opacity-80"
-            style={{ color: "var(--color-text-primary)" }}
-            aria-label="GitHub"
-          >
-            <Github className="size-5" />
-          </a>
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-opacity hover:opacity-80"
-            style={{ color: "var(--color-text-primary)" }}
-            aria-label="LinkedIn"
-          >
-            <Linkedin className="size-5" />
-          </a>
+        {/* Link columns — Figma 0:769 */}
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-[45px]">
+          {FOOTER_COLUMNS.map((col) => (
+            <div key={col.heading} className="flex flex-col gap-[15px]">
+              <h4
+                className="font-bold"
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: footerText.heading,
+                  lineHeight: "22.5px",
+                  color: "var(--color-section-dark-text)",
+                }}
+              >
+                {col.heading}
+              </h4>
+              <ul className="flex flex-col gap-[15px]">
+                {col.links.map((link) =>
+                  link.external ? (
+                    <li key={link.label}>
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition-opacity hover:opacity-80"
+                        style={{
+                          fontFamily: "var(--font-body)",
+                          fontWeight: 400,
+                          fontSize: footerText.link,
+                          lineHeight: footerText.linkHeight,
+                          color: "var(--color-section-dark-text)",
+                        }}
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ) : (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="transition-opacity hover:opacity-80"
+                        style={{
+                          fontFamily: "var(--font-body)",
+                          fontWeight: 400,
+                          fontSize: footerText.link,
+                          lineHeight: footerText.linkHeight,
+                          color: "var(--color-section-dark-text)",
+                        }}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  )
+                )}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Separator + logo — Figma 0:843 */}
+        <div className="flex items-center gap-[45px]">
+          <div
+            className="h-px flex-1 shrink-0"
+            style={{
+              borderTop: "1px solid var(--color-primary-dark)",
+            }}
+          />
+          <Link href="/" className="shrink-0" aria-label="Noah - Inicio">
+            <Image
+              src="/images/logo.png"
+              alt="Noah"
+              width={136}
+              height={30}
+              className="h-8 w-auto opacity-95 md:h-[30px]"
+              style={{ filter: "brightness(0) invert(1)" }}
+            />
+          </Link>
+          <div
+            className="h-px flex-1 shrink-0"
+            style={{
+              borderTop: "1px solid var(--color-primary-dark)",
+            }}
+          />
+        </div>
+
+        {/* Bottom: legal + social — Figma 0:851 */}
+        <div className="flex flex-col gap-6 border-t border-[var(--color-primary-dark)] pt-8 md:flex-row md:items-start md:justify-between md:gap-8">
+          <div className="flex flex-col gap-5">
+            <Link href="/" className="inline-block w-fit">
+              <Image
+                src="/images/logo.png"
+                alt="Noah"
+                width={120}
+                height={33}
+                className="h-7 w-auto opacity-95 md:h-8"
+                style={{ filter: "brightness(0) invert(1)" }}
+              />
+            </Link>
+            <div
+              className="text-left"
+              style={{
+                fontFamily: "var(--font-body)",
+                fontWeight: 400,
+                fontSize: footerText.legal,
+                lineHeight: footerText.legalHeight,
+                color: "var(--color-section-dark-text)",
+                opacity: 0.95,
+              }}
+            >
+              <p>De reunión a acta profesional en minutos. Noah usa IA para estructurar automáticamente la información en un acta formal lista para compartir.</p>
+            </div>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontWeight: 400,
+                fontSize: footerText.legal,
+                lineHeight: "15px",
+                color: "var(--color-section-dark-text)",
+                opacity: 0.9,
+              }}
+            >
+              © {currentYear} Noah. Todos los derechos reservados.
+            </p>
+            <div
+              className="flex flex-wrap gap-x-3 gap-y-1"
+              style={{
+                fontFamily: "var(--font-body)",
+                fontWeight: 400,
+                fontSize: footerText.legal,
+                lineHeight: "15px",
+                color: "var(--color-section-dark-text)",
+                opacity: 0.9,
+              }}
+            >
+              <Link href="/terminos" className="transition-opacity hover:opacity-80">
+                Términos de uso
+              </Link>
+              <span aria-hidden>·</span>
+              <Link href="/privacidad" className="transition-opacity hover:opacity-80">
+                Privacidad
+              </Link>
+            </div>
+          </div>
+          <div className="flex items-center gap-4 md:shrink-0">
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-opacity hover:opacity-80"
+              style={{ color: "var(--color-section-dark-text)" }}
+              aria-label="Twitter"
+            >
+              <Twitter className="size-5" strokeWidth={1.5} />
+            </a>
+            <a
+              href="https://github.com/marcomarinodesign/noah"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-opacity hover:opacity-80"
+              style={{ color: "var(--color-section-dark-text)" }}
+              aria-label="GitHub"
+            >
+              <Github className="size-5" strokeWidth={1.5} />
+            </a>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-opacity hover:opacity-80"
+              style={{ color: "var(--color-section-dark-text)" }}
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="size-5" strokeWidth={1.5} />
+            </a>
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-opacity hover:opacity-80"
+              style={{ color: "var(--color-section-dark-text)" }}
+              aria-label="Instagram"
+            >
+              <Instagram className="size-5" strokeWidth={1.5} />
+            </a>
+          </div>
         </div>
       </div>
     </footer>
