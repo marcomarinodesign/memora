@@ -1,25 +1,22 @@
 "use client";
 
+import { useLeadModal } from "@/components/context/LeadModalContext";
 import Image from "next/image";
 import Link from "next/link";
-import { Github, Twitter, Linkedin, Instagram } from "lucide-react";
-
 const footerText = {
   heading: "15px",
   headingWeight: 700,
   link: "12.9px",
   linkHeight: "18.75px",
-  legal: "11.1px",
-  legalHeight: "16.88px",
 };
 
-type FooterLink = { label: string; href: string; external?: boolean };
+type FooterLink = { label: string; href: string; external?: boolean; openModal?: boolean };
 
 const FOOTER_COLUMNS: { heading: string; links: FooterLink[] }[] = [
   {
     heading: "Producto",
     links: [
-      { label: "Generar acta", href: "/generar-acta" },
+      { label: "Solicitar acceso", href: "#", openModal: true },
       { label: "Cómo funciona", href: "/#producto" },
       { label: "Precios", href: "/#precios" },
       { label: "FAQ", href: "/#faq" },
@@ -29,7 +26,7 @@ const FOOTER_COLUMNS: { heading: string; links: FooterLink[] }[] = [
     heading: "Empezar",
     links: [
       { label: "Precios", href: "/#precios" },
-      { label: "Probar gratis", href: "/generar-acta" },
+      { label: "Pedir información", href: "#", openModal: true },
       { label: "Contacto", href: "/#contacto" },
     ],
   },
@@ -43,14 +40,14 @@ const FOOTER_COLUMNS: { heading: string; links: FooterLink[] }[] = [
   {
     heading: "Contacto",
     links: [
-      { label: "Formulario", href: "/#contacto" },
+      { label: "Hablar con nosotros", href: "#", openModal: true },
       { label: "GitHub", href: "https://github.com/marcomarinodesign/noah", external: true },
     ],
   },
 ];
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
+  const { openModal } = useLeadModal();
 
   return (
     <footer
@@ -83,7 +80,28 @@ export function Footer() {
               </h4>
               <ul className="flex flex-col gap-[15px]">
                 {col.links.map((link) =>
-                  link.external ? (
+                  link.openModal ? (
+                    <li key={link.label}>
+                      <button
+                        type="button"
+                        onClick={openModal}
+                        className="transition-opacity hover:opacity-80 text-left"
+                        style={{
+                          fontFamily: "var(--font-body)",
+                          fontWeight: 400,
+                          fontSize: footerText.link,
+                          lineHeight: footerText.linkHeight,
+                          color: "var(--color-section-dark-text)",
+                          background: "none",
+                          border: "none",
+                          padding: 0,
+                          cursor: "pointer",
+                        }}
+                      >
+                        {link.label}
+                      </button>
+                    </li>
+                  ) : link.external ? (
                     <li key={link.label}>
                       <a
                         href={link.href}
@@ -147,107 +165,6 @@ export function Footer() {
               borderTop: "1px solid var(--color-primary-dark)",
             }}
           />
-        </div>
-
-        {/* Bottom: legal + social — Figma 0:851 */}
-        <div className="flex flex-col gap-6 border-t border-[var(--color-primary-dark)] pt-8 md:flex-row md:items-start md:justify-between md:gap-8">
-          <div className="flex flex-col gap-5">
-            <Link href="/" className="inline-block w-fit">
-              <Image
-                src="/brand/White_Logo.svg"
-                alt="Noah"
-                width={120}
-                height={33}
-                className="h-7 w-auto opacity-95 md:h-8"
-              />
-            </Link>
-            <div
-              className="text-left"
-              style={{
-                fontFamily: "var(--font-body)",
-                fontWeight: 400,
-                fontSize: footerText.legal,
-                lineHeight: footerText.legalHeight,
-                color: "var(--color-section-dark-text)",
-                opacity: 0.95,
-              }}
-            >
-              <p>De reunión a acta profesional en minutos. Noah usa IA para estructurar automáticamente la información en un acta formal lista para compartir.</p>
-            </div>
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontWeight: 400,
-                fontSize: footerText.legal,
-                lineHeight: "15px",
-                color: "var(--color-section-dark-text)",
-                opacity: 0.9,
-              }}
-            >
-              © {currentYear} Noah. Todos los derechos reservados.
-            </p>
-            <div
-              className="flex flex-wrap gap-x-3 gap-y-1"
-              style={{
-                fontFamily: "var(--font-body)",
-                fontWeight: 400,
-                fontSize: footerText.legal,
-                lineHeight: "15px",
-                color: "var(--color-section-dark-text)",
-                opacity: 0.9,
-              }}
-            >
-              <Link href="/terminos" className="transition-opacity hover:opacity-80">
-                Términos de uso
-              </Link>
-              <span aria-hidden>·</span>
-              <Link href="/privacidad" className="transition-opacity hover:opacity-80">
-                Privacidad
-              </Link>
-            </div>
-          </div>
-          <div className="flex items-center gap-4 md:shrink-0">
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-opacity hover:opacity-80"
-              style={{ color: "var(--color-section-dark-text)" }}
-              aria-label="Twitter"
-            >
-              <Twitter className="size-5" strokeWidth={1.5} />
-            </a>
-            <a
-              href="https://github.com/marcomarinodesign/noah"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-opacity hover:opacity-80"
-              style={{ color: "var(--color-section-dark-text)" }}
-              aria-label="GitHub"
-            >
-              <Github className="size-5" strokeWidth={1.5} />
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-opacity hover:opacity-80"
-              style={{ color: "var(--color-section-dark-text)" }}
-              aria-label="LinkedIn"
-            >
-              <Linkedin className="size-5" strokeWidth={1.5} />
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-opacity hover:opacity-80"
-              style={{ color: "var(--color-section-dark-text)" }}
-              aria-label="Instagram"
-            >
-              <Instagram className="size-5" strokeWidth={1.5} />
-            </a>
-          </div>
         </div>
       </div>
     </footer>

@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Check, ChevronDown, ChevronRight, BookOpen, Users, Award, Library } from "lucide-react";
 import { useState } from "react";
+import { useLeadModal } from "@/components/context/LeadModalContext";
+import { motion, MotionButton, ScrollReveal } from "@/components/ui/motion";
 
 const HERO_IMAGES = [
   { src: "/images/hero-1.png", caption: "Juntas directivas", alt: "Reunión de junta directiva" },
@@ -52,6 +54,7 @@ const FAQ_ITEMS: { question: string; answer: string }[] = [
 
 export function FigmaHomepage() {
   const [faqOpenIndex, setFaqOpenIndex] = useState<number | null>(null);
+  const { openModal } = useLeadModal();
 
   return (
     <main
@@ -72,7 +75,7 @@ export function FigmaHomepage() {
           style={{ gap: "var(--space-8)" }}
         >
           <div className="flex flex-col items-center gap-4">
-            <p
+            <motion.p
               className="text-center"
               style={{
                 fontFamily: "var(--font-body)",
@@ -81,10 +84,18 @@ export function FigmaHomepage() {
                 lineHeight: "var(--leading-nav)",
                 color: "var(--color-hero-label)",
               }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
             >
               Software de actas
-            </p>
-            <div className="flex flex-col gap-4">
+            </motion.p>
+            <motion.div
+              className="flex flex-col gap-4"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.08, ease: [0.25, 0.1, 0.25, 1] }}
+            >
               <h1
                 className="text-center md:whitespace-nowrap"
                 style={{
@@ -114,12 +125,18 @@ export function FigmaHomepage() {
                 IA para estructurar automáticamente toda la información en un
                 acta formal lista para compartir.
               </p>
-            </div>
+            </motion.div>
           </div>
 
-          <div className="flex flex-col items-center gap-4">
-            <Link
-              href="/generar-acta"
+          <motion.div
+            className="flex flex-col items-center gap-4"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: 0.16, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            <MotionButton
+              type="button"
+              onClick={openModal}
               className="inline-flex h-[38px] items-center justify-center rounded px-4 font-medium text-white transition-opacity hover:opacity-95"
               style={{
                 backgroundColor: "var(--color-primary-dark)",
@@ -128,8 +145,8 @@ export function FigmaHomepage() {
                 fontFamily: "var(--font-body)",
               }}
             >
-              Empieza Gratis
-            </Link>
+              Solicitar acceso
+            </MotionButton>
             <div
               className="flex flex-wrap items-center justify-center gap-6"
               style={{ gap: "var(--space-6)" }}
@@ -151,10 +168,15 @@ export function FigmaHomepage() {
                 </span>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="flex w-full flex-col gap-4">
+        <motion.div
+          className="flex w-full flex-col gap-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, delay: 0.24, ease: [0.25, 0.1, 0.25, 1] }}
+        >
           <div
             className="grid grid-cols-2 gap-0 overflow-hidden rounded md:grid-cols-4"
             style={{ borderRadius: "var(--radius-sm)" }}
@@ -205,7 +227,7 @@ export function FigmaHomepage() {
             style={{ borderColor: "rgba(96, 60, 10, 0.22)" }}
             aria-hidden
           />
-        </div>
+        </motion.div>
       </section>
 
       {/* Product Showcase + Features + CTA — Figma 0:200 (una sola sección oscura) */}
@@ -217,9 +239,10 @@ export function FigmaHomepage() {
           color: "var(--color-section-dark-text)",
           paddingTop: "var(--space-16)",
           paddingBottom: "var(--space-16)",
+          scrollMarginTop: 86,
         }}
       >
-        <div
+        <ScrollReveal
           className="mx-auto flex max-w-[1230px] flex-col gap-[60px] px-6 md:px-8"
           style={{
             gap: "60px",
@@ -300,38 +323,49 @@ export function FigmaHomepage() {
             ))}
           </div>
 
-          {/* CTA final dentro de la misma section — Figma 0:305 */}
-          <Link
-            href="/generar-acta"
-            className="flex w-full items-center justify-between rounded-lg transition-opacity hover:opacity-95"
+          {/* CTA final — Figma 7:2 */}
+          <div
+            className="flex w-full flex-col items-stretch gap-4 rounded-lg p-6 sm:flex-row sm:items-center sm:justify-between sm:gap-6"
             style={{
               backgroundColor: "var(--color-cta-bar-bg)",
               borderRadius: "7.5px",
-              paddingTop: "29px",
-              paddingBottom: "30px",
-              paddingLeft: "30px",
-              paddingRight: "30px",
+              padding: "30px",
             }}
           >
-            <span
+            <p
               className="font-medium"
               style={{
                 fontFamily: "var(--font-body)",
-                fontSize: "24.7px",
+                fontSize: "24.6px",
                 lineHeight: "33.75px",
                 letterSpacing: "0.15px",
                 color: "var(--color-cta-bar-text)",
               }}
             >
-              Get started with Noah.
-            </span>
-            <ChevronRight
-              className="size-[30px] shrink-0"
-              style={{ color: "var(--color-cta-bar-text)" }}
-              aria-hidden
-            />
-          </Link>
-        </div>
+              Empieza con Noah.
+            </p>
+            <MotionButton
+              type="button"
+              onClick={openModal}
+              className="shrink-0 rounded-lg font-medium transition-opacity hover:opacity-95"
+              style={{
+                fontFamily: "var(--font-body)",
+                backgroundColor: "var(--color-primary-dark)",
+                color: "var(--color-cta-bar-bg)",
+                fontSize: "14.8px",
+                lineHeight: "22.5px",
+                borderRadius: "3.75px",
+                paddingTop: "6.5px",
+                paddingBottom: "8px",
+                paddingLeft: "15px",
+                paddingRight: "15px",
+                minHeight: "37.5px",
+              }}
+            >
+              Hablar con un experto
+            </MotionButton>
+          </div>
+        </ScrollReveal>
       </section>
 
       {/* Partners — Figma 0:311 */}
@@ -343,7 +377,7 @@ export function FigmaHomepage() {
           paddingBottom: "var(--space-16)",
         }}
       >
-        <div
+        <ScrollReveal
           className="mx-auto flex max-w-[1230px] flex-col gap-[60px] px-6 md:px-8"
           style={{
             gap: "60px",
@@ -400,10 +434,11 @@ export function FigmaHomepage() {
                 desc: "Plantillas de actas, guías de buenas prácticas y ejemplos listos para usar.",
               },
             ].map((card) => (
-              <Link
+              <MotionButton
                 key={card.title}
-                href="/#contacto"
-                className="flex flex-col gap-3 rounded-lg p-6 transition-opacity hover:opacity-95"
+                type="button"
+                onClick={openModal}
+                className="flex w-full flex-col gap-3 rounded-lg p-6 text-left transition-opacity hover:opacity-95"
                 style={{
                   backgroundColor: "var(--color-partners-card-bg)",
                   borderRadius: "3.75px",
@@ -437,7 +472,7 @@ export function FigmaHomepage() {
                     {card.desc}
                   </p>
                 </div>
-              </Link>
+              </MotionButton>
             ))}
           </div>
 
@@ -461,8 +496,9 @@ export function FigmaHomepage() {
             >
               Sácale más partido a Noah.
             </span>
-            <Link
-              href="/#contacto"
+            <MotionButton
+              type="button"
+              onClick={openModal}
               className="inline-flex h-[38px] items-center justify-center rounded px-4 font-medium transition-opacity hover:opacity-95"
               style={{
                 backgroundColor: "var(--color-cta-bar-bg)",
@@ -472,10 +508,10 @@ export function FigmaHomepage() {
                 lineHeight: "22.5px",
               }}
             >
-              Hablar con un experto
-            </Link>
+              Pedir información
+            </MotionButton>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Precios — Figma 3:12 */}
@@ -486,9 +522,10 @@ export function FigmaHomepage() {
           backgroundColor: "var(--color-bg-cream)",
           paddingTop: "var(--space-16)",
           paddingBottom: "var(--space-16)",
+          scrollMarginTop: 86,
         }}
       >
-        <div className="mx-auto flex max-w-[1170px] flex-col items-center gap-[40px] px-6">
+        <ScrollReveal className="mx-auto flex max-w-[1170px] flex-col items-center gap-[40px] px-6">
           {/* Header */}
           <div className="flex flex-col items-center gap-6 text-center">
             <span
@@ -527,9 +564,8 @@ export function FigmaHomepage() {
           <div className="grid w-full max-w-5xl gap-4 md:grid-cols-3 md:gap-5">
             {/* Básico */}
             <div
-              className="flex flex-col rounded-lg border bg-white p-4"
+              className="flex flex-col rounded-lg border-0 bg-white p-4"
               style={{
-                borderColor: "var(--color-pricing-card-border)",
                 borderRadius: "7.5px",
                 padding: "16px",
               }}
@@ -555,8 +591,9 @@ export function FigmaHomepage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <Link
-                  href="/generar-acta"
+                <MotionButton
+                  type="button"
+                  onClick={openModal}
                   className="flex h-[45px] items-center justify-center rounded-lg font-medium text-white transition-opacity hover:opacity-95"
                   style={{
                     backgroundColor: "rgba(10, 78, 2, 0.74)",
@@ -564,10 +601,11 @@ export function FigmaHomepage() {
                     lineHeight: "22.5px",
                   }}
                 >
-                  Empezar gratis
-                </Link>
-                <Link
-                  href="/generar-acta"
+                  Solicitar acceso
+                </MotionButton>
+                <MotionButton
+                  type="button"
+                  onClick={openModal}
                   className="flex h-[45px] items-center justify-center rounded-lg font-medium transition-opacity hover:opacity-95"
                   style={{
                     backgroundColor: "rgba(113, 72, 13, 0.12)",
@@ -575,8 +613,8 @@ export function FigmaHomepage() {
                     fontSize: "14.6px",
                   }}
                 >
-                  Probar 30 días
-                </Link>
+                  Pedir información
+                </MotionButton>
               </div>
               <ul className="mt-4 flex flex-col gap-2 pt-2">
                 {["Hasta 5 actas al mes", "Transcripción de audio con IA", "Exportar a PDF"].map((item) => (
@@ -590,9 +628,8 @@ export function FigmaHomepage() {
 
             {/* Pro — Más popular */}
             <div
-              className="relative flex flex-col rounded-lg border-2 bg-white p-4 shadow-md"
+              className="relative flex flex-col rounded-lg border-0 bg-white p-4 shadow-md"
               style={{
-                borderColor: "var(--color-pricing-green)",
                 borderRadius: "7.5px",
                 padding: "16px",
               }}
@@ -624,18 +661,20 @@ export function FigmaHomepage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <Link
-                  href="/generar-acta"
+                <MotionButton
+                  type="button"
+                  onClick={openModal}
                   className="flex h-[45px] items-center justify-center rounded-lg font-medium text-white transition-opacity hover:opacity-95"
                   style={{
                     backgroundColor: "var(--color-pricing-green-dark)",
                     fontSize: "14.9px",
                   }}
                 >
-                  50% los primeros 3 meses
-                </Link>
-                <Link
-                  href="/generar-acta"
+                  Pedir información
+                </MotionButton>
+                <MotionButton
+                  type="button"
+                  onClick={openModal}
                   className="flex h-[45px] items-center justify-center rounded-lg font-medium transition-opacity hover:opacity-95"
                   style={{
                     backgroundColor: "var(--color-pricing-secondary-btn-bg)",
@@ -643,8 +682,8 @@ export function FigmaHomepage() {
                     fontSize: "14.6px",
                   }}
                 >
-                  Probar 30 días gratis
-                </Link>
+                  Solicitar acceso
+                </MotionButton>
               </div>
               <ul className="mt-4 flex flex-col gap-2 pt-2">
                 {["Actas ilimitadas", "Transcripción de audio con IA", "Plantillas personalizadas", "Soporte prioritario"].map((item) => (
@@ -689,8 +728,9 @@ export function FigmaHomepage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <Link
-                  href="/#contacto"
+                <MotionButton
+                  type="button"
+                  onClick={openModal}
                   className="flex h-[45px] items-center justify-center rounded-lg font-medium text-white transition-opacity hover:opacity-95"
                   style={{
                     backgroundColor: "var(--color-primary-dark)",
@@ -698,9 +738,10 @@ export function FigmaHomepage() {
                   }}
                 >
                   Pedir una demo
-                </Link>
-                <Link
-                  href="/#contacto"
+                </MotionButton>
+                <MotionButton
+                  type="button"
+                  onClick={openModal}
                   className="flex h-[45px] items-center justify-center gap-1 rounded-lg font-medium transition-opacity hover:opacity-95"
                   style={{
                     backgroundColor: "var(--color-pricing-secondary-btn-bg)",
@@ -708,9 +749,9 @@ export function FigmaHomepage() {
                     fontSize: "14.6px",
                   }}
                 >
-                  Saber más
+                  Hablar con nosotros
                   <ChevronRight className="size-4" aria-hidden />
-                </Link>
+                </MotionButton>
               </div>
               <ul className="mt-4 flex flex-col gap-2 pt-2">
                 {["Todo lo de Pro", "Soporte por teléfono y videollamada", "Onboarding y formación a medida"].map((item) => (
@@ -740,8 +781,9 @@ export function FigmaHomepage() {
                 Los miembros de organizaciones colaboradoras pueden obtener un descuento. Escríbenos para ser partner.
               </p>
             </div>
-            <Link
-              href="/#contacto"
+            <MotionButton
+              type="button"
+              onClick={openModal}
               className="shrink-0 rounded-lg px-6 py-3 font-medium text-white transition-opacity hover:opacity-95"
               style={{
                 backgroundColor: "var(--color-primary-dark)",
@@ -749,9 +791,9 @@ export function FigmaHomepage() {
               }}
             >
               Contactar
-            </Link>
+            </MotionButton>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* FAQ — Figma 0:679 */}
@@ -762,9 +804,10 @@ export function FigmaHomepage() {
           backgroundColor: "var(--color-bg-cream)",
           paddingTop: "var(--space-16)",
           paddingBottom: "var(--space-16)",
+          scrollMarginTop: 86,
         }}
       >
-        <div
+        <ScrollReveal
           className="mx-auto flex max-w-[1230px] flex-col items-stretch gap-[60px] px-6"
           style={{ paddingLeft: "30px", paddingRight: "30px" }}
         >
@@ -832,8 +875,9 @@ export function FigmaHomepage() {
             >
               ¿Más preguntas?
             </h3>
-            <Link
-              href="/#contacto"
+            <MotionButton
+              type="button"
+              onClick={openModal}
               className="inline-flex h-[38px] items-center justify-center rounded-lg px-6 font-medium text-white transition-opacity hover:opacity-95"
               style={{
                 backgroundColor: "var(--color-primary-dark)",
@@ -843,87 +887,9 @@ export function FigmaHomepage() {
               }}
             >
               Contactar
-            </Link>
+            </MotionButton>
           </div>
-        </div>
-      </section>
-
-      {/* Hablemos — Figma 0:731 */}
-      <section
-        id="contacto"
-        className="py-16 md:py-24"
-        style={{
-          backgroundColor: "var(--color-section-dark-bg)",
-          paddingTop: "var(--space-16)",
-          paddingBottom: "var(--space-20)",
-        }}
-      >
-        <div className="mx-auto flex max-w-[1170px] flex-col items-center gap-10 px-6 md:gap-14">
-          <h2
-            className="text-center text-4xl font-bold tracking-[-1.5px] md:text-[56px] md:leading-[67.5px]"
-            style={{
-              fontFamily: "var(--font-body)",
-              color: "var(--color-section-dark-text)",
-            }}
-          >
-            Hablemos
-          </h2>
-
-          <div className="flex w-full max-w-[525px] flex-col items-center gap-6">
-            <div
-              className="flex w-full flex-col overflow-hidden rounded-lg bg-white shadow-lg sm:flex-row"
-              style={{
-                borderRadius: "3.75px",
-                boxShadow:
-                  "0px 0px 2px 0px rgba(0,0,0,0.05), 0px 1px 2px 0px rgba(0,0,0,0.02), 0px 4px 6px 0px rgba(0,0,0,0.02), 0px 8px 12px 0px rgba(0,0,0,0.03), 0px 18px 22px 0px rgba(0,0,0,0.03)",
-                border: "1px solid var(--color-border-subtle)",
-              }}
-            >
-              <input
-                type="email"
-                placeholder="Tu correo electrónico"
-                className="min-h-[45px] flex-1 border-0 bg-white px-4 py-3 outline-none focus:ring-0"
-                style={{
-                  fontSize: "14.6px",
-                  color: "var(--color-text-primary)",
-                }}
-              />
-              <Link
-                href="/generar-acta"
-                className="inline-flex h-[37.5px] shrink-0 items-center justify-center bg-[var(--color-cta-bar-bg)] px-4 font-medium transition-opacity hover:opacity-95 md:h-[45px] md:px-6"
-                style={{
-                  color: "var(--color-cta-bar-text)",
-                  fontSize: "14.5px",
-                  lineHeight: "22.5px",
-                  borderRadius: "3.75px",
-                }}
-              >
-                Probar gratis
-              </Link>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-center gap-4 gap-y-2 md:gap-6">
-              {["Prueba gratis 30 días", "Formación en vivo", "Soporte en español", "Sin compromiso"].map((label) => (
-                <div key={label} className="flex items-center gap-2">
-                  <Check
-                    className="size-4 shrink-0"
-                    style={{ color: "var(--color-section-dark-text)" }}
-                    aria-hidden
-                  />
-                  <span
-                    className="text-[13px] font-medium"
-                    style={{
-                      color: "var(--color-section-dark-text)",
-                      lineHeight: "18.75px",
-                    }}
-                  >
-                    {label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        </ScrollReveal>
       </section>
     </main>
   );

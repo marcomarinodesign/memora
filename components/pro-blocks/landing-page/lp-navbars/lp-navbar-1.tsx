@@ -1,16 +1,27 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useLeadModal } from "@/components/context/LeadModalContext";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useId, useState } from "react";
+import { useId, useState, useCallback, useEffect } from "react";
+
+const NAVBAR_OFFSET_PX = 86;
 
 const MENU_ITEMS = [
-  { label: "Cómo funciona", href: "/#producto" },
-  { label: "Pricing", href: "/#precios" },
-  { label: "Contacto", href: "/#contacto" },
+  { label: "Cómo funciona", sectionId: "producto" },
+  { label: "Pricing", sectionId: "precios" },
+  { label: "Contacto", sectionId: "faq" },
 ] as const;
+
+function scrollToSection(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const yOffset = -NAVBAR_OFFSET_PX;
+  const y = el.getBoundingClientRect().top + window.scrollY + yOffset;
+  window.scrollTo({ top: y, behavior: "smooth" });
+}
 
 const navLinkStyle = {
   fontSize: "var(--text-nav)",
@@ -21,7 +32,37 @@ const navLinkStyle = {
 
 export function LpNavbar1() {
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const panelId = useId();
+  const { openModal } = useLeadModal();
+
+  const handleNavClick = useCallback((sectionId: string) => {
+    scrollToSection(sectionId);
+    setOpen(false);
+    if (typeof window !== "undefined") {
+      window.history.replaceState(null, "", `/#${sectionId}`);
+    }
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = MENU_ITEMS.map((item) => item.sectionId);
+    const threshold = NAVBAR_OFFSET_PX + 80;
+
+    const onScroll = () => {
+      let current: string | null = null;
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= threshold) current = id;
+      }
+      setActiveSection(current);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <header
@@ -68,21 +109,26 @@ export function LpNavbar1() {
           aria-label="Navegación principal"
           style={{ gap: "var(--space-2)" }}
         >
-          {MENU_ITEMS.map(({ label, href }) => (
-            <Link
-              key={label}
-              href={href}
-              className="rounded px-4 py-2 transition-opacity hover:opacity-80"
+          {MENU_ITEMS.map(({ label, sectionId }) => (
+            <a
+              key={sectionId}
+              href={`/#${sectionId}`}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick(sectionId);
+              }}
+              className={`rounded px-4 py-2 transition-opacity hover:opacity-80 ${activeSection === sectionId ? "opacity-100 font-semibold" : "opacity-90"}`}
               style={navLinkStyle}
             >
               {label}
-            </Link>
+            </a>
           ))}
         </nav>
 
         <div className="lp-nav-desktop-cta">
-          <Link
-            href="/generar-acta"
+          <button
+            type="button"
+            onClick={() => { setOpen(false); openModal(); }}
             className="inline-flex h-[38px] items-center justify-center rounded px-4 text-[15px] font-medium transition-opacity hover:opacity-90"
             style={{
               ...navLinkStyle,
@@ -90,8 +136,8 @@ export function LpNavbar1() {
               backgroundColor: "transparent",
             }}
           >
-            Generar acta
-          </Link>
+            Solicitar acceso
+          </button>
         </div>
 
         <Button
@@ -117,28 +163,31 @@ export function LpNavbar1() {
         }}
       >
         <div className="flex flex-col gap-1">
-          {MENU_ITEMS.map(({ label, href }) => (
-            <Link
-              key={label}
-              href={href}
-              onClick={() => setOpen(false)}
-              className="rounded-lg px-4 py-3 transition-opacity hover:opacity-80"
+          {MENU_ITEMS.map(({ label, sectionId }) => (
+            <a
+              key={sectionId}
+              href={`/#${sectionId}`}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick(sectionId);
+              }}
+              className={`rounded-lg px-4 py-3 transition-opacity hover:opacity-80 ${activeSection === sectionId ? "opacity-100 font-semibold" : ""}`}
               style={{ ...navLinkStyle, fontSize: "var(--text-base)" }}
             >
               {label}
-            </Link>
+            </a>
           ))}
-          <Link
-            href="/generar-acta"
-            onClick={() => setOpen(false)}
+          <button
+            type="button"
+            onClick={() => { setOpen(false); openModal(); }}
             className="mt-2 inline-flex h-[38px] items-center justify-center rounded border px-4"
             style={{
               borderColor: "var(--color-nav-border)",
               ...navLinkStyle,
             }}
           >
-            Generar acta
-          </Link>
+            Solicitar acceso
+          </button>
         </div>
       </div>
     </header>

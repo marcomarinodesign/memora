@@ -1,7 +1,11 @@
-import Link from "next/link";
+"use client";
+
 import { ChevronRight } from "lucide-react";
+import { useLeadModal } from "@/components/context/LeadModalContext";
 
 export function AnnouncementBar() {
+  const { openModal } = useLeadModal();
+
   return (
     <div
       className="flex items-center justify-center gap-2 py-1.5 text-center"
@@ -14,13 +18,14 @@ export function AnnouncementBar() {
         lineHeight: "var(--leading-banner)",
       }}
     >
-      <Link
-        href="/#precios"
+      <button
+        type="button"
+        onClick={openModal}
         className="inline-flex items-center justify-center gap-1.5 transition-opacity hover:opacity-90"
       >
-        <span>Limited Time Offer: 50% Off Your First 3 Months</span>
+        <span>Noah en beta — Solicita acceso</span>
         <ChevronRight className="size-4 shrink-0" aria-hidden />
-      </Link>
+      </button>
     </div>
   );
 }

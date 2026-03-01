@@ -4,6 +4,7 @@ import "./globals.css";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { LpNavbar1 } from "@/components/pro-blocks/landing-page/lp-navbars/lp-navbar-1";
 import { Footer } from "@/components/footer";
+import { LeadModalLayout } from "@/components/layout/LeadModalLayout";
 
 const publicSans = Public_Sans({
   subsets: ["latin"],
@@ -25,10 +26,12 @@ export default function RootLayout({
   return (
     <html lang="es" data-theme="light" className={publicSans.variable}>
       <body className="font-sans antialiased">
-        <AnnouncementBar />
-        <LpNavbar1 />
-        {children}
-        <Footer />
+        <LeadModalLayout>
+          <AnnouncementBar />
+          <LpNavbar1 />
+          {children}
+          <Footer />
+        </LeadModalLayout>
       </body>
     </html>
   );
